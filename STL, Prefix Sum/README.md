@@ -1,4 +1,3 @@
 # STL
----
+
 ## Prefix Sum
----
