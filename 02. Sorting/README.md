@@ -1,5 +1,5 @@
 # Sorting
-![Array Sorting Algorithms](/2.%20Sorting/timecomplexity_chart.png)
+![Array Sorting Algorithms](/02.%20Sorting/timecomplexity_chart.png)
 
 ### Merge Sort
 
