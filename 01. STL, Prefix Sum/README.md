@@ -26,6 +26,7 @@ template < class T, size_t N > class array;
 - N : Size of the array, in terms of number of elements.
 ```c++
 int arr[n]; // Array of n elements, with 0 indexing.
+//0 1 2 3 4 ..... n-1
 string cars[4] = {"Volvo", "BMW", "Ford", "Mazda"};
 int val[row][col]; //2d array, must know row and col before defining this
 for (int i = 0; i < row; i++)                 
@@ -35,11 +36,13 @@ for (int i = 0; i < row; i++)
         cin >> val[i][j]; 
     }   
 }
-//0 1 2 3 4 ..... n-1
+```
+```c++
 arr.begin() //Returns iterator to beginning
 arr.end() // Returns iterator to end
 
 arr.size() //Returns number of elements 
+           //Can only be used in the function it is declared in
 arr.empty() //Checks if array is empty
 ```
 
