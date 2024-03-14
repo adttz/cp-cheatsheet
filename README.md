@@ -1,5 +1,9 @@
 # Competitive Programming Cheatsheet
 
+
+> if i dont get an intership i will kms
+
+
 ---
 # Table of Contents
 1. [STL, Prefix Sum](https://github.com/9nvou/cp-cheatsheet/tree/main/01.%20STL%2C%20Prefix%20Sum)
