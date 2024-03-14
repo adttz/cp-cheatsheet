@@ -1,7 +1,7 @@
 # Competitive Programming Cheatsheet
 
 
-> if i dont get an intership i will kms
+> if i dont get an intership i will kms 😂😂
 
 
 ---
