@@ -1,9 +1,9 @@
-# Standard Template Libray & Basics
+# Standard Template Library & Basics
 ```c++
 #include<bits/stdc++.h>
 using namespace std
 ```
-
+---
 # Table of Contents
 - **[Data Structures](#data-structures)**
     - [Array](#array)
@@ -14,7 +14,7 @@ using namespace std
 - **[Getting Started](#getting-started)**
     - [Prefix Sum](#prefix-sum)
     - [Suffix Sum](#suffix-sum)
-
+---
 
 # Data Structures
 
