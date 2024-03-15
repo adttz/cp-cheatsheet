@@ -9,8 +9,8 @@ using namespace std
     - [Array](#array)
     - [Vector](#vector)
     - [Pair](#pair)
-    - [Ordered and Unordered Map](#ordered-and-unordered-nap)
-    - [Set and Multiset](#set-and-nultiset)
+    - [Ordered and Unordered Map](#ordered-and-unordered-map)
+    - [Set and Multiset](#set-and-multiset)
 - **[Getting Started](#getting-started)**
     - [Prefix Sum](#prefix-sum)
     - [Suffix Sum](#suffix-sum)
@@ -41,8 +41,9 @@ for (int i = 0; i < row; i++)
 arr.begin() //Returns iterator to beginning
 arr.end() // Returns iterator to end
 
-arr.size() //Returns number of elements 
-           //Can only be used in the function it is declared in
+arr.size()  //Returns number of elements 
+            /*Can only be used in the function 
+              it is declared in*/
 arr.empty() //Checks if array is empty
 ```
 
@@ -57,6 +58,7 @@ template < class T, class Alloc = allocator<T> > class vector
 vector <object_type> vector_name;
 vector<int> nums(n,1) // Initialized a vector of length n, having a value 1
 vector<string> colour{"Blue", "Red", "Orange"};
+
 ```
 
 ## Pair
