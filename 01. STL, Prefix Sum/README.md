@@ -58,7 +58,7 @@ template < class T, class Alloc = allocator<T> > class vector
 
 ```c++
 vector <object_type> vector_name;
-vector<int> nums(n,1) // Initialized a vector of length n, having a value 1
+vector<int> nums(n,1) // Initialize a vector of length n, having a value 1
 vector<string> colour{"Blue", "Red", "Orange"};
 ```
 
