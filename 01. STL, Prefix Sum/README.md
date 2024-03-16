@@ -41,7 +41,7 @@ for (int i = 0; i < row; i++)
 ```
 ```c++
 arr.begin() //Returns iterator to beginning
-arr.end() // Returns iterator to end
+arr.end()   // Returns iterator to end
 
 arr.size()  //Returns number of elements 
             /*Can only be used in the function 
@@ -57,9 +57,27 @@ template < class T, class Alloc = allocator<T> > class vector
 - Alloc : Type of the allocator object used to define the storage allocation model. By default, the allocator class template is used, which defines the simplest memory allocation model and is value-independent.
 
 ```c++
-vector <object_type> vector_namv;
+vector <object_type> vector_name;
 vector<int> nums(n,1) // Initialized a vector of length n, having a value 1
 vector<string> colour{"Blue", "Red", "Orange"};
+```
+
+```c++
+vector<int> v(n);
+vector<int> w(m)
+
+v.push_back(x); //Add element at the end
+v.pop_back(y);  //Delete last element
+
+v.swap(w)       //Exchange elements of v and w
+v.clear()       //Clears elements of vector
+
+v.erase(i)      //Removes a single element 
+v.erase(v.begin(), v.begin() + x) //Erase range [first,last)
+v.erase(unique(v.begin(),v.end()),v.end()); //Remove duplicates from vector
+
+sort(v.beginn(), v.end());  //Sorts vector in ascending order
+sort(v.rbegin(), v.rend()); //Sorts vector in descending order
 ```
 
 ## Pair
