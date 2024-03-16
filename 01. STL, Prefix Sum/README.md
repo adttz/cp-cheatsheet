@@ -10,7 +10,11 @@ using namespace std
     - [Vector](#vector)
     - [Pair](#pair)
     - [Ordered and Unordered Map](#ordered-and-unordered-map)
+        - [Map](#map)
+        - [Unordered Map](#unordered-map)
     - [Set and Multiset](#set-and-multiset)
+        - [Set](#set)
+        - [Multiset](#multiset)
 - **[Getting Started](#getting-started)**
     - [Prefix Sum](#prefix-sum)
         - [Maximum Subarray Sum](#maximum-subarray-sum)
@@ -42,6 +46,8 @@ for (int i = 0; i < row; i++)
 ```c++
 arr.begin() //Returns iterator to beginning
 arr.end()   // Returns iterator to end
+arr.rbegin() 
+arr.rend()
 
 arr.size()  //Returns number of elements 
             /*Can only be used in the function 
@@ -79,7 +85,7 @@ v.erase(i)                                  //Removes a single element
 v.erase(v.begin(), v.begin() + x)           //Erase range [first,last)
 v.erase(unique(v.begin(),v.end()),v.end()); //Remove duplicates from vector
 
-sort(v.beginn(), v.end());  //Sorts vector in ascending order
+sort(v.begin(), v.end());   //Sorts vector in ascending order
 sort(v.rbegin(), v.rend()); //Sorts vector in descending order
 ```
 
@@ -122,9 +128,24 @@ for(auto it = data.begin(); it != data.end(); ++it) {
 
 
 ## Ordered and Unordered Map
-
-
+### Map
+```c++
+template< class Key, class T, class Compare = std::less<Key>,
+class Allocator = std::allocator<std::pair<const Key, T>>
+> class map;
+```
+### Unordered Map
+```c++
+template<class Key, class T, class Hash = std::hash<Key>,class KeyEqual = std::equal_to<Key>,
+class Allocator = std::allocator<std::pair<const Key, T>>
+> class unordered_map;
+```
 ## Set and Multiset
+
+### Set
+
+
+### Multiset
 
 ---
 # Getting Started
