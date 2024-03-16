@@ -10,7 +10,7 @@
     - [Quick Sort](#quick-sort)
 ---
 
-<img align="right" src="/images/sorting.png">
+![Time Complexity](/images/sorting.png)
 
 # Sorting Algorithms
 
