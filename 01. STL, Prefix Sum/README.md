@@ -138,7 +138,8 @@ for(int i = 1; i < n; i++){
 }
 ```
 ### Maximum Subarray Sum
-> https://cses.fi/problemset/task/1643
+> [Q. Given an array of n integers, your task is to find the maximum sum of values in a contiguous, nonempty subarray.
+](https://cses.fi/problemset/task/1643)
 
 >Can also be done using [Kadane's Algorithm](https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm)
 ```c++
@@ -159,7 +160,8 @@ cout << max_subarray_sum << endl;
 ```
 
 ### 2D Prefix Sum
-> https://cses.fi/problemset/task/1652
+> [Q. You are given an n x n grid representing the map of a forest. Each square is either empty or contains a tree. The upper-left square has coordinates (1,1), and the lower-right square has coordinates (n,n). Your task is to process q queries of the form: how many trees are inside a given rectangle in the forest?
+](https://cses.fi/problemset/task/1652)
 
 ![2d prefix sum](/images/2dprefixsum.png)
 ![Submatrix sum](/images/submatrixsum.png)
