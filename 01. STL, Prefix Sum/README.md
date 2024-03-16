@@ -60,6 +60,9 @@ template < class T, class Alloc = allocator<T> > class vector
 vector <object_type> vector_name;
 vector<int> nums(n,1) // Initialize a vector of length n, having a value 1
 vector<string> colour{"Blue", "Red", "Orange"};
+
+vector<vector<int>> matrix(3, vector<int>(4, 0))
+// Define a 2D vector with 3 rows and 4 columns, initialized with zeros
 ```
 
 ```c++
@@ -81,6 +84,41 @@ sort(v.rbegin(), v.rend()); //Sorts vector in descending order
 ```
 
 ## Pair
+```c++
+template <class T1, class T2> struct pair;
+```
+- T1, T2 : the types of the elements that the pair stores.
+```c++
+pair<int,int> pair1(13,37);
+pair<int,int> pair2;
+pair2 = make_pair(420,69);
+
+pair<string,int> pair3;
+pair3.first = "Take no prisoners"
+pair3.second = 90
+
+pair1.swap(pair2);
+```
+```c++
+pair<vector<int>,vector<string>> vp;
+vp.first.push_back("abc");
+vp.first.push_back("def")
+vp.second.push_back(19);
+vp.second.push_back(21);  
+```
+```c++
+vector<pair<int,int>> v;
+v.push_back(make_pair(1, 3.14));
+v.push_back(make_pair(2, 2.718));
+
+vector<pair<int, string>> data = {{1, "apple"}, {2, "banana"}, {3, "cherry"}};
+for(int i = 0; i < n; i++){
+    cout << data[i].first << " " << data[i].second << endl;
+}
+for(auto it = data.begin(); it != data.end(); ++it) {
+    cout << it->first << " " << it->second << endl;
+}
+```
 
 
 ## Ordered and Unordered Map
@@ -101,7 +139,8 @@ for(int i = 1; i < n; i++){
 ```
 ### Maximum Subarray Sum
 > https://cses.fi/problemset/task/1643
-Can also be done using [Kadane's Algorithm](https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm)
+
+>Can also be done using [Kadane's Algorithm](https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm)
 ```c++
 vector<int> pfx(n + 1, 0);  
 for (int i = 1; i <= n; i++) {
