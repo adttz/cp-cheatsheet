@@ -13,6 +13,8 @@ using namespace std
     - [Set and Multiset](#set-and-multiset)
 - **[Getting Started](#getting-started)**
     - [Prefix Sum](#prefix-sum)
+        - [Maximum Subarray Sum](#maximum-subarray-sum)
+        - [2d Prefix Sum](#2d-prefix-sum)
     - [Suffix Sum](#suffix-sum)
 ---
 
@@ -55,10 +57,9 @@ template < class T, class Alloc = allocator<T> > class vector
 - Alloc : Type of the allocator object used to define the storage allocation model. By default, the allocator class template is used, which defines the simplest memory allocation model and is value-independent.
 
 ```c++
-vector <object_type> vector_name;
+vector <object_type> vector_namv;
 vector<int> nums(n,1) // Initialized a vector of length n, having a value 1
 vector<string> colour{"Blue", "Red", "Orange"};
-
 ```
 
 ## Pair
@@ -73,6 +74,44 @@ vector<string> colour{"Blue", "Red", "Orange"};
 # Getting Started
 
 ## Prefix Sum
+```c++
+vector<int> pf(n);
+pf[0] = a[0];
+for(int i = 1; i < n; i++){
+    pf[i] = pf[i-1] + a[i];
+}
+```
+### Maximum Subarray Sum
+> https://cses.fi/problemset/task/1643
+Can also be done using [Kadane's Algorithm](https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm)
+```c++
+vector<int> pfx(n + 1, 0);  
+for (int i = 1; i <= n; i++) {
+    int x; cin >> x;
+    pfx[i] = pfx[i - 1] + x;  
+}
+
+int max_subarray_sum = pfx[1];
+int min_prefix_sum = pfx[0];
+for (int i = 1; i <= n; i++) {
+    // max subarray sum is the maximum difference between two prefix sums
+    max_subarray_sum = max(max_subarray_sum, pfx[i] - min_prefix_sum);
+    min_prefix_sum = min(min_prefix_sum, pfx[i]);
+}
+cout << max_subarray_sum << endl;
+```
+
+### 2D Prefix Sum
+> https://cses.fi/problemset/task/1652
+
+![2d prefix sum](/images/2dprefixsum.png)
+![Submatrix sum](/images/submatrixsum.png)
 
 ## Suffix Sum
-
+```c++
+vector<int> sf(n);
+sf[n-1] = a[n-1];
+for(int i = n - 2; i >= 0; i++){
+    sf[i] = sf[i+1] + a[i];
+}
+```
