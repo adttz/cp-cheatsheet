@@ -1,7 +1,5 @@
 # Sorting
 ---
-<img align="right" src="/images/sorting.png" width="350">
-
 # Table of Contents
 - **[Sorting Algoritms](#sorting-algorithms)**
     - [Bubble Sort](#bubble-sort)
@@ -11,6 +9,8 @@
     - [Merge Sort](#merge-sort)
     - [Quick Sort](#quick-sort)
 ---
+
+<img align="right" src="/images/sorting.png">
 
 # Sorting Algorithms
 
@@ -25,6 +25,7 @@ for (i = 0; i < n - 1; i++) {
     for (j = 0; j < n - i - 1; j++) {
         if (arr[j] > arr[j + 1])
             swap(a[j], a[j+1]);
+
     }
 }
 ```
