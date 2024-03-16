@@ -66,14 +66,14 @@ vector<string> colour{"Blue", "Red", "Orange"};
 vector<int> v(n);
 vector<int> w(m)
 
-v.push_back(x); //Add element at the end
-v.pop_back(y);  //Delete last element
+v.push_back(x);     //Add element at the end
+v.pop_back(y);      //Delete last element
 
-v.swap(w)       //Exchange elements of v and w
-v.clear()       //Clears elements of vector
+v.swap(w)           //Exchange elements of v and w
+v.clear()           //Clears elements of vector
 
-v.erase(i)      //Removes a single element 
-v.erase(v.begin(), v.begin() + x) //Erase range [first,last)
+v.erase(i)                                  //Removes a single element 
+v.erase(v.begin(), v.begin() + x)           //Erase range [first,last)
 v.erase(unique(v.begin(),v.end()),v.end()); //Remove duplicates from vector
 
 sort(v.beginn(), v.end());  //Sorts vector in ascending order
