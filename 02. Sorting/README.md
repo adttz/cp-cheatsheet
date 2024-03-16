@@ -49,7 +49,7 @@ for (i = 0; i < n - 1; i++) {
 ## Counting Sort
 
 
-### Merge Sort
+## Merge Sort
 
-### Quick Sort
+## Quick Sort
 

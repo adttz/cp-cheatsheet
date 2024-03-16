@@ -1,7 +1,7 @@
 # Competitive Programming Cheatsheet
 
 
-> if i dont get an intership i will kms 😂😂
+> if i dont get an intership i will kms 😿😿
 
 
 ---
@@ -30,10 +30,10 @@
 
 
 ## Practice Platforms:
+- [Leetcode](https://leetcode.com)
 - [Codeforces](https://codeforces.com/)
 - [Sphere Online Judge(SPOJ)](https://www.spoj.com/)
 - [Codechef](https://www.codechef.com)
-- [Leetcode](https://leetcode.com)
 - [AtCoder](https://atcoder.jp/contests/)
 - [TopCoder](https://www.topcoder.com)
 
