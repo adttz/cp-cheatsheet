@@ -1,6 +1,6 @@
 # Sorting
 ---
-<img align="right" src="/images/sorting.png">
+<img align="right" src="/images/sorting.png" width="350">
 
 # Table of Contents
 - **[Sorting Algoritms](#sorting-algorithms)**
