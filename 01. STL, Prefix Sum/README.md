@@ -145,8 +145,9 @@ map<char,int> mp;
 mp.insert(pair<char, int>('b', 100));
 mp['a'] = 200;
 mp.insert(pair<char, int>('c',100));
-
-    //map<char, int>::iterator it;
+```
+```c++
+//map<char, int>::iterator it;
 for(auto it = mp.begin(); it != mp.end(); it++){    
     cout << it->first << " = " << it->second << endl;     //mp.begin() points to the first sorted element
 }   // a = 200 b = 100 c = 300
@@ -160,6 +161,24 @@ for (auto &x: mymap) {
     cout << x.first << ": " << x.second << endl;
 }
 
+```
+```c++
+map<char,int> mymap;
+map<char,int>::iterator itlow,itup;
+
+mymap['a']=20;
+mymap['b']=40;
+mymap['c']=60;
+mymap['d']=80;
+mymap['e']=100;
+
+itlow=mymap.lower_bound('b');  // itlow points to b
+itup=mymap.upper_bound('d');   // itup points to e (not d!)
+mymap.erase(itlow,itup);       // erases [itlow,itup)
+
+for (auto it=mymap.begin(); it!=mymap.end(); ++it){
+    cout << it->first << " = " << it->second << '\n';
+}   // a = 20 e = 100
 ```
 ### Unordered Map
 ```c++
