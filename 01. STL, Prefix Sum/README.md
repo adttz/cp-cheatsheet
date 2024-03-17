@@ -22,7 +22,7 @@ using namespace std
     - [Suffix Sum](#suffix-sum)
 ---
 
-# Data Structures
+# Data Structures 
 
 ## Array
 ```c++
@@ -134,12 +134,36 @@ template< class Key, class T, class Compare = std::less<Key>,
 class Allocator = std::allocator<std::pair<const Key, T>>
 > class map;
 ```
+- Increasing order of keys
+- Implemented using Red-Black tree
+- Time complexity for search/insertion/deletion - O(logN)
 ### Unordered Map
 ```c++
 template<class Key, class T, class Hash = std::hash<Key>,class KeyEqual = std::equal_to<Key>,
 class Allocator = std::allocator<std::pair<const Key, T>>
 > class unordered_map;
 ```
+- No ordering of keys
+- Implemented using Hash tables
+- Time complexity for search/insertion/deletion- Average O(1), Worst case - O(N)
+
+- If using unordered map for contests, make sure to use this custom hash to prevent getting hacked
+
+>! This is a spoiler
+
+>! 
+>>! 
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+};
+>>!
+>!
+
 ## Set and Multiset
 
 ### Set
