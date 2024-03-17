@@ -98,6 +98,7 @@ template <class T1, class T2> struct pair;
 pair<int,int> pair1(13,37);
 pair<int,int> pair2;
 pair2 = make_pair(420,69);
+pair<int,char> pair3 = {1, 'a'};
 
 pair<string,int> pair3;
 pair3.first = "Take no prisoners"
@@ -137,6 +138,29 @@ class Allocator = std::allocator<std::pair<const Key, T>>
 - Increasing order of keys
 - Implemented using Red-Black tree
 - Time complexity for search/insertion/deletion - O(logN)
+
+```c++
+map<key,value> m;
+map<char,int> mp;
+mp.insert(pair<char, int>('b', 100));
+mp['a'] = 200;
+mp.insert(pair<char, int>('c',100));
+
+    //map<char, int>::iterator it;
+for(auto it = mp.begin(); it != mp.end(); it++){    
+    cout << it->first << " = " << it->second << endl;     //mp.begin() points to the first sorted element
+}   // a = 200 b = 100 c = 300
+
+map<string,int> mymap = {{"alpha",0},{"beta",0}};
+mymap.at("alpha") = 10;
+mymap.at("beta") = 20;
+
+cout << "alpha = " << mymap.find("alpha")->second << endl;
+for (auto &x: mymap) {
+    cout << x.first << ": " << x.second << endl;
+}
+
+```
 ### Unordered Map
 ```c++
 template<class Key, class T, class Hash = std::hash<Key>,class KeyEqual = std::equal_to<Key>,
