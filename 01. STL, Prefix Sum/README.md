@@ -209,7 +209,7 @@ class Allocator = std::allocator<std::pair<const Key, T>>
     };
     // unordered_map < int, int, custom_hash > safe_map;
     </code></pre>
-    </details>  
+</details>  
 
 ## Set and Multiset
 
