@@ -30,6 +30,8 @@ template < class T, size_t N > class array;
 ```
 - T : Type of the elements contained. Aliased as member type array::value_type.
 - N : Size of the array, in terms of number of elements.
+<br />
+
 ```c++
 int arr[n]; // Array of n elements, with 0 indexing.
 //0 1 2 3 4 ..... n-1
@@ -43,6 +45,8 @@ for (int i = 0; i < row; i++)
     }   
 }
 ```
+<br />
+
 ```c++
 arr.begin() //Returns iterator to beginning
 arr.end()   // Returns iterator to end
@@ -62,6 +66,8 @@ template < class T, class Alloc = allocator<T> > class vector
 - T : Type of the elements.
 - Alloc : Type of the allocator object used to define the storage allocation model. By default, the allocator class template is used, which defines the simplest memory allocation model and is value-independent.
 
+<br />
+
 ```c++
 vector <object_type> vector_name;
 vector<int> nums(n,1) // Initialize a vector of length n, having a value 1
@@ -70,6 +76,8 @@ vector<string> colour{"Blue", "Red", "Orange"};
 vector<vector<int>> matrix(3, vector<int>(4, 0))
 // Define a 2D vector with 3 rows and 4 columns, initialized with zeros
 ```
+
+<br />
 
 ```c++
 vector<int> v(n);
@@ -94,6 +102,9 @@ sort(v.rbegin(), v.rend()); //Sorts vector in descending order
 template <class T1, class T2> struct pair;
 ```
 - T1, T2 : the types of the elements that the pair stores.
+
+<br />
+
 ```c++
 pair<int,int> pair1(13,37);
 pair<int,int> pair2;
@@ -106,6 +117,10 @@ pair3.second = 90
 
 pair1.swap(pair2);
 ```
+
+
+- Pair of vectors:
+
 ```c++
 pair<vector<int>,vector<string>> vp;
 vp.first.push_back("abc");
@@ -113,12 +128,15 @@ vp.first.push_back("def")
 vp.second.push_back(19);
 vp.second.push_back(21);  
 ```
+
+- Vector of pairs
+
 ```c++
 vector<pair<int,int>> v;
 v.push_back(make_pair(1, 3.14));
 v.push_back(make_pair(2, 2.718));
 
-vector<pair<int, string>> data = {{1, "apple"}, {2, "banana"}, {3, "cherry"}};
+vector<pair<int, char>> data = {{1, 'a'}, {2, 'b'}, {3, 'c'}};
 for(int i = 0; i < n; i++){
     cout << data[i].first << " " << data[i].second << endl;
 }
@@ -135,9 +153,13 @@ template< class Key, class T, class Compare = std::less<Key>,
 class Allocator = std::allocator<std::pair<const Key, T>>
 > class map;
 ```
+<br />
+
 - Increasing order of keys
 - Implemented using Red-Black tree
 - Time complexity for search/insertion/deletion - O(logN)
+
+<br />
 
 ```c++
 map<key,value> m;
@@ -146,8 +168,11 @@ mp.insert(pair<char, int>('b', 100));
 mp['a'] = 200;
 mp.insert(pair<char, int>('c',100));
 ```
+
+<br />
+
 ```c++
-//map<char, int>::iterator it;
+//Alternatively, for defining iterator : map<char, int>::iterator it;
 for(auto it = mp.begin(); it != mp.end(); it++){    
     cout << it->first << " = " << it->second << endl;     //mp.begin() points to the first sorted element
 }   // a = 200 b = 100 c = 300
@@ -160,8 +185,10 @@ cout << "alpha = " << mymap.find("alpha")->second << endl;
 for (auto &x: mymap) {
     cout << x.first << ": " << x.second << endl;
 }
-
 ```
+
+<br />
+
 ```c++
 map<char,int> mymap;
 map<char,int>::iterator itlow,itup;
@@ -186,13 +213,14 @@ template<class Key, class T, class Hash = std::hash<Key>,class KeyEqual = std::e
 class Allocator = std::allocator<std::pair<const Key, T>>
 > class unordered_map;
 ```
+<br />
+
 - No ordering of keys
 - Implemented using Hash tables
 - Time complexity for search/insertion/deletion- Average O(1), Worst case - O(N)
 
-- If using unordered map for contests, make sure to use this custom hash to prevent getting hacked
-
-- <details>
+- If using unordered map for contests, make sure to use this custom hash to avoid getting hacked
+   <details>
         <summary>Custom hash</summary>
     <pre><code lang="c++">
     struct custom_hash {
@@ -207,7 +235,7 @@ class Allocator = std::allocator<std::pair<const Key, T>>
             return splitmix64(x + FIXED_RANDOM);
         }
     };
-    // unordered_map < int, int, custom_hash > safe_map;
+    //Usage: unordered_map < int, int, custom_hash > safe_map;
     </code></pre>
 </details>  
 

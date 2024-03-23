@@ -4,8 +4,9 @@
 - **[Sorting Algoritms](#sorting-algorithms)**
     - [Bubble Sort](#bubble-sort)
     - [Selection Sort](#selection-sort)
-    - [Insertion](#insertion-sort)
+    - [Insertion Sort](#insertion-sort)
     - [Quick Sort](#quick-sort)
+    - [Heap Sort](#heap-sort)
     - [Merge Sort](#merge-sort)
     - [Counting Sort](#counting-sort)
 ---
@@ -58,11 +59,52 @@ for (i = 1; i < n; i++) {
 }
 ```
 ## Quick Sort
-Based on Divide and Conquer. Place the pivot at its correct location in the sorted array with all smaller elements to the left and bigger elements to the right. 
-Partition is done recursively on each side of the pivot after the pivot is placed in its correct position and this finally sorts the array.
-```c++
 
+```c++
+int partition(vector<int> arr,int low,int high)
+{
+   
+  int pivot=arr[high];  //Choose the pivot
+  //Index of smaller element and Indicate
+  //the right position of pivot found so far
+  int i=(low-1);
+   
+  for(int j=low;j<=high;j++)
+  {
+    //If current element is smaller than the pivot
+    if(arr[j]<pivot)
+    {
+      //Increment index of smaller element
+      i++;
+      swap(arr[i],arr[j]);
+    }
+  }
+  swap(arr[i+1],arr[high]);
+  return (i+1);
+}
+ 
+// The Quicksort function Implement
+            
+void quickSort(vector<int> arr,int start,int end)
+{
+  // when low is less than high
+  if(start<end)
+  {
+    // pi is the partition return index of pivot
+     
+    int p=partition(arr,start,end);
+     
+    //Recursion Call
+    //smaller element than pivot goes left and
+    //higher element goes right
+    quickSort(arr,start,p-1);
+    quickSort(arr,p+1,end);
+  }
+}
 ```
+## Heap Sort
+
+
 ## Merge Sort
 
 
