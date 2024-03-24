@@ -10,16 +10,18 @@ using namespace std
     - [Vector](#vector)
     - [Pair](#pair)
     - [Ordered and Unordered Map](#ordered-and-unordered-map)
-        - [Map](#map)
-        - [Unordered Map](#unordered-map)
+        - ***[Map](#map)***
+        - ***[Unordered Map](#unordered-map)***
     - [Set and Multiset](#set-and-multiset)
-        - [Set](#set)
-        - [Multiset](#multiset)
+        - ***[Set](#set)***
+        - ***[Multiset](#multiset)***
 - **[Getting Started](#getting-started)**
+    - [Time Complexities](#time-complexities)
     - [Prefix Sum](#prefix-sum)
-        - [Maximum Subarray Sum](#maximum-subarray-sum)
-        - [2d Prefix Sum](#2d-prefix-sum)
+        - ***[Maximum Subarray Sum](#maximum-subarray-sum)***
+        - ***[2d Prefix Sum](#2d-prefix-sum)***
     - [Suffix Sum](#suffix-sum)
+    - [Modular Arithmetic](#modular-arithmetic)
 ---
 
 # Data Structures 
@@ -35,12 +37,11 @@ template < class T, size_t N > class array;
 ```c++
 int arr[n]; // Array of n elements, with 0 indexing.
 //0 1 2 3 4 ..... n-1
+
 string cars[4] = {"Volvo", "BMW", "Ford", "Mazda"};
 int val[row][col]; //2d array, must know row and col before defining this
-for (int i = 0; i < row; i++)                 
-{
-    for (int j = 0; j < col; j++)
-    {
+for (int i = 0; i < row; i++){
+    for (int j = 0; j < col; j++){
         cin >> val[i][j]; 
     }   
 }
@@ -64,8 +65,7 @@ arr.empty() //Checks if array is empty
 template < class T, class Alloc = allocator<T> > class vector
 ```
 - T : Type of the elements.
-- Alloc : Type of the allocator object used to define the storage allocation model. By default, the allocator class template is used, which defines the simplest memory allocation model and is value-independent.
-
+- Alloc : Type of the allocator object used to define the storage allocation model.
 <br />
 
 ```c++
@@ -73,7 +73,7 @@ vector <object_type> vector_name;
 vector<int> nums(n,1) // Initialize a vector of length n, having a value 1
 vector<string> colour{"Blue", "Red", "Orange"};
 
-vector<vector<int>> matrix(3, vector<int>(4, 0))
+vector< vector<int> > matrix(3, vector<int>(4, 0))
 // Define a 2D vector with 3 rows and 4 columns, initialized with zeros
 ```
 
@@ -84,12 +84,12 @@ vector<int> v(n);
 vector<int> w(m)
 
 v.push_back(x);     //Add element at the end
-v.pop_back(y);      //Delete last element
+v.pop_back();       //Delete last element
 
 v.swap(w)           //Exchange elements of v and w
 v.clear()           //Clears elements of vector
 
-v.erase(i)                                  //Removes a single element 
+v.erase(i)          //Removes a single element at index i
 v.erase(v.begin(), v.begin() + x)           //Erase range [first,last)
 v.erase(unique(v.begin(),v.end()),v.end()); //Remove duplicates from vector
 
@@ -157,7 +157,7 @@ class Allocator = std::allocator<std::pair<const Key, T>>
 
 - Increasing order of keys
 - Implemented using Red-Black tree
-- Time complexity for search/insertion/deletion - O(logN)
+- Time complexity for search/insertion/deletion - <ins> O(logN) </ins>
 
 <br />
 
@@ -208,6 +208,8 @@ for (auto it=mymap.begin(); it!=mymap.end(); ++it){
 }   // a = 20 e = 100
 ```
 ### Unordered Map
+// add .count() and some other functions
+
 ```c++
 template<class Key, class T, class Hash = std::hash<Key>,class KeyEqual = std::equal_to<Key>,
 class Allocator = std::allocator<std::pair<const Key, T>>
@@ -217,10 +219,10 @@ class Allocator = std::allocator<std::pair<const Key, T>>
 
 - No ordering of keys
 - Implemented using Hash tables
-- Time complexity for search/insertion/deletion- Average O(1), Worst case - O(N)
+- Time complexity for search/insertion/deletion- <ins> Average O(1)</ins> , <ins>Worst case - O(N) </ins>
 
 - If using unordered map for contests, make sure to use this custom hash to avoid getting hacked
-   <details>
+    <details>
         <summary>Custom hash</summary>
     <pre><code lang="c++">
     struct custom_hash {
@@ -237,7 +239,7 @@ class Allocator = std::allocator<std::pair<const Key, T>>
     };
     //Usage: unordered_map < int, int, custom_hash > safe_map;
     </code></pre>
-</details>  
+    </details>  
 
 ## Set and Multiset
 
@@ -249,6 +251,41 @@ class Allocator = std::allocator<std::pair<const Key, T>>
 ---
 # Getting Started
 
+## Time Complexities
+
+
+- O(1) The running time of a constant-time algorithm does not depend on the input size. A typical constant-time algorithm is a direct formula that calculates the answer.
+
+- O(logn) A logarithmic algorithm often halves the input size at each step. The running time of such an algorithm is logarithmic, because log2 n equals the number of times n must be divided by 2 to get 1.
+
+- O(n<sup>1/2</sup>) A square root algorithm is slower than O(logn) but faster than O(n).
+
+- O(n) A linear algorithm goes through the input a constant number of times. This is often the best possible time complexity, because it is usually necessary to access each input element at least once before reporting the answer.
+
+- O(nlogn) This time complexity often indicates that the algorithm sorts the input, because the time complexity of efficient sorting algorithms is O(nlogn).
+Another possibility is that the algorithm uses a data structure where each operation takes O(logn) time.
+
+- O(n<sup>2</sup>) A quadratic algorithm often contains two nested loops. It is possible to go through all pairs of the input elements in O(n<sup>2</sup>) time.
+
+- O(n<sup>3</sup>) A cubic algorithm often contains three nested loops. It is possible to go through all triplets of the input elements in O(n<sup>3</sup>) time.
+
+- O(2<sup>n</sup>)This time complexity often indicates that the algorithm iterates through all subsets of the input elements. For example, the subsets of {1,2,3} are {1}, {2}, {3}, {1,2}, {1,3}, {2,3} and {1,2,3}.
+
+- O(n!) This time complexity often indicates that the algorithm iterates through all permutations of the input elements. For example, the permutations of {1,2,3} are (1,2,3), (1,3,2), (2,1,3), (2,3,1), (3,1,2) and (3,2,1).
+
+<center>
+
+| Input Size          | Required time complexity  |
+|---------------------|---------------------------|
+| n <= 10             | O(n!)                     |
+| n <= 20             | O(2<sup>n</sup>)          |
+| n <= 500            | O(n<sup>3</sup>)          |
+| n <= 5000           | O(n<sup>2</sup>)          |
+| n <= 10<sup>6</sup> | O(n logn) or O(n)         |
+| n is large          | O(1) or O(logn)           |
+
+</center>
+
 ## Prefix Sum
 ```c++
 vector<int> pf(n);
@@ -258,26 +295,53 @@ for(int i = 1; i < n; i++){
 }
 ```
 ### Maximum Subarray Sum
-> [Q. Given an array of n integers, your task is to find the maximum sum of values in a contiguous, nonempty subarray.
+> [Given an array of n integers, find maximum sum of values in a contiguous, nonempty subarray.
 ](https://cses.fi/problemset/task/1643)
 
->Can also be done using [Kadane's Algorithm](https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm)
-```c++
-vector<int> pfx(n + 1, 0);  
-for (int i = 1; i <= n; i++) {
-    int x; cin >> x;
-    pfx[i] = pfx[i - 1] + x;  
-}
+<details>
+        <summary>Using prefix sum</summary>
+    <pre><code lang="c++">
+    vector<int> pfx(n);
+    pfx[0] = v[0];  
+    for (int i = 0; i < n; i++) {
+        pfx[i] = pfx[i - 1] + v[i];  
+    }
+    int max_subarray_sum = pfx[0];
+    int min_prefix_sum = 0;
+    for (int i = 0; i < n; i++) {
+        // max subarray sum is the maximum difference between two prefix sums
+        max_subarray_sum = max(max_subarray_sum, pfx[i] - min_prefix_sum);
+        min_prefix_sum = min(min_prefix_sum, pfx[i]);
+    }
+    cout << max_subarray_sum << endl;
+    </code></pre>
+    </details>  
+<details>
+        <summary>Using DP</summary>
+    <pre><code lang="c++">
+    vector<int> dp(nums.size());
+    dp[0] = nums[0];
+    int ans = dp[0];
+    for(int i = 1; i < nums.size(); i++){
+        dp[i] = nums[i] + (dp[i-1] > 0 ? dp[i-1] : 0);
+        ans = max(ans,dp[i]);
+    }
+    cout << ans << endl;
+    </code></pre>
+    </details>  
 
-int max_subarray_sum = pfx[1];
-int min_prefix_sum = pfx[0];
-for (int i = 1; i <= n; i++) {
-    // max subarray sum is the maximum difference between two prefix sums
-    max_subarray_sum = max(max_subarray_sum, pfx[i] - min_prefix_sum);
-    min_prefix_sum = min(min_prefix_sum, pfx[i]);
-}
-cout << max_subarray_sum << endl;
-```
+<details>
+        <summary>Using Kadane's</summary>
+    <pre><code lang="c++">
+    int curmax = 0, maxtillnow = INT_MIN; 
+    for(int i = 0; i < nums.size();i++){
+        curmax = max(nums[i],curmax+nums[i]);
+        maxtillnow = max(maxtillnow,curmax);
+    }
+    cout << maxtillnow << endl;
+    </code></pre>
+    </details>  
+
 
 ### 2D Prefix Sum
 > [Q. You are given an n x n grid representing the map of a forest. Each square is either empty or contains a tree. The upper-left square has coordinates (1,1), and the lower-right square has coordinates (n,n). Your task is to process q queries of the form: how many trees are inside a given rectangle in the forest?
@@ -293,4 +357,20 @@ sf[n-1] = a[n-1];
 for(int i = n - 2; i >= 0; i++){
     sf[i] = sf[i+1] + a[i];
 }
+```
+## Modular Arithmetic
+m = 1e9 + 7
+Calculate n!, modulo m:
+```c++
+long long x = 1;
+for (int i = 2; i <= n; i++) {
+    x = (x*i)%m;
+}
+cout << x%m << "\n";
+```
+
+If remainder is negative,
+```c++
+x = x%m;
+if (x < 0) x += m;
 ```
