@@ -371,6 +371,10 @@ cout << x%m << "\n";
 
 If remainder is negative,
 ```c++
+sum = (sum % mod + mod) % mod;
+```
+or
+```c++
 x = x%m;
 if (x < 0) x += m;
 ```
