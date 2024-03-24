@@ -333,12 +333,12 @@ for(int i = 1; i < n; i++){
 <details>
         <summary>Using Kadane's</summary>
     <pre><code lang="c++">
-    int curmax = 0, maxtillnow = INT_MIN; 
-    for(int i = 0; i < nums.size();i++){
-        curmax = max(nums[i],curmax+nums[i]);
-        maxtillnow = max(maxtillnow,curmax);
-    }
-    cout << maxtillnow << endl;
+    int mx = 0, curr = 0;
+    for(int i = 0; i < n; i++){
+        curr += v[i];
+        curr = max(curr,0ll);
+        mx = max(mx,curr);
+    };
     </code></pre>
     </details>  
 
