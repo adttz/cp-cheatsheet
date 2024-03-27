@@ -1,7 +1,7 @@
 # Competitive Programming Cheatsheet
 
 
-> update: cranking dat hog
+> cranking my hog
 
 
 ---

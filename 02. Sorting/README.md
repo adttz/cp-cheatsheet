@@ -1,7 +1,6 @@
 # Sorting
----
 # Table of Contents
-- **[Sorting Algoritms](#sorting-algorithms)**
+1. **[Sorting Algoritms](#sorting-algorithms)**
     - [Bubble Sort](#bubble-sort)
     - [Selection Sort](#selection-sort)
     - [Insertion Sort](#insertion-sort)
@@ -9,7 +8,7 @@
     - [Heap Sort](#heap-sort)
     - [Merge Sort](#merge-sort)
     - [Counting Sort](#counting-sort)
----
+    ---
 
 ![Time Complexity](/images/sorting.png)
 

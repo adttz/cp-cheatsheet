@@ -3,16 +3,15 @@
 #include<bits/stdc++.h>
 using namespace std
 ```
----
 # Table of Contents
 - **[Data Structures](#data-structures)**
     - [Array](#array)
     - [Vector](#vector)
     - [Pair](#pair)
-    - [Ordered and Unordered Map](#ordered-and-unordered-map)
-        - ***[Map](#map)***
+    - [Maps](#maps)
+        - ***[Ordered Map](#ordered-map)***
         - ***[Unordered Map](#unordered-map)***
-    - [Set and Multiset](#set-and-multiset)
+    - [Sets](#sets)
         - ***[Set](#set)***
         - ***[Multiset](#multiset)***
 - **[Getting Started](#getting-started)**
@@ -22,7 +21,7 @@ using namespace std
         - ***[2d Prefix Sum](#2d-prefix-sum)***
     - [Suffix Sum](#suffix-sum)
     - [Modular Arithmetic](#modular-arithmetic)
----
+
 
 # Data Structures 
 
@@ -146,8 +145,8 @@ for(auto it = data.begin(); it != data.end(); ++it) {
 ```
 
 
-## Ordered and Unordered Map
-### Map
+## Maps
+### Ordered Map
 ```c++
 template< class Key, class T, class Compare = std::less<Key>,
 class Allocator = std::allocator<std::pair<const Key, T>>
@@ -241,7 +240,7 @@ class Allocator = std::allocator<std::pair<const Key, T>>
     </code></pre>
     </details>  
 
-## Set and Multiset
+## Sets
 
 ### Set
 

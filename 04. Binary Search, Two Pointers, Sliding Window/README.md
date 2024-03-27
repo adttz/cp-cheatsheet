@@ -1,11 +1,12 @@
 # Table of Contents
-- **[Binary Search](#binary-search)**
-    - [Upper and Lower Bound](#upper-and-lower-bound)
+-   **[Binary Search](#binary-search)**
+    - [Lower bound](#lower-bound)
+    - [Upper bound](#upper-bound)
 - **[Two Pointer](#two-pointer)**
 - **[Sliding Window](#sliding-window)**
 
 # Binary Search
-> [Guide](https://leetcode.com/problems/binary-search/solutions/423162/Binary-Search-101-The-Ultimate-Binary-Search-Handbook/)
+> [Leetcode Guide](https://leetcode.com/problems/binary-search/solutions/423162/Binary-Search-101-The-Ultimate-Binary-Search-Handbook/)
 ```c++
 int l = 0, r = n-1;
 while(l <= r){
@@ -42,9 +43,9 @@ mid = left + (right - left + 1)/2   //Right/upper mid
 ## Upper and Lower bound
 Array must be sorted for these to work
 #### Lower Bound
-> lower_bound(begin, end, value): gives the position of the first element in the [begin, end) range that is at least value
+> lower_bound (begin, end, value): gives the position of the first element in the [begin, end) range that is at least value
 #### Upper Bound
-> upper_bound(begin, end, value): gives the position of the first element in the [begin, end) range that is strictly greater than value
+> upper_bound (begin, end, value): gives the position of the first element in the [begin, end) range that is strictly greater than value
 ```c++
     vector<int> v={10,20,30,30,20,10,10,20};
 
