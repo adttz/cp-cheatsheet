@@ -354,7 +354,7 @@ for(int i = 1; i < n; i++){
 ```c++
 vector<int> sf(n);
 sf[n-1] = a[n-1];
-for(int i = n - 2; i >= 0; i++){
+for(int i = n - 2; i >= 0; i--){
     sf[i] = sf[i+1] + a[i];
 }
 ```

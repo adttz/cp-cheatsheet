@@ -14,7 +14,7 @@
 ![Time Complexity](/images/sorting.png)
 
 # Sorting Algorithms
-
+        
 ## Bubble Sort
 
 - Traverse from left and compare adjacent elements and the higher one is placed at right side. 
