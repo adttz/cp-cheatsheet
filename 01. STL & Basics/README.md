@@ -44,6 +44,10 @@ for (int i = 0; i < row; i++){
         cin >> val[i][j]; 
     }   
 }
+
+int row = grid.size();
+int column = grid[0].size();
+
 ```
 <br />
 
@@ -238,13 +242,14 @@ class Allocator = std::allocator<std::pair<const Key, T>>
     };
     //Usage: unordered_map < int, int, custom_hash > safe_map;
     </code></pre>
-    </details>  
+    </details>       
 
 ## Sets
 
 ### Set
-
-
+https://codeforces.com/contest/1904/problem/A
+https://codeforces.com/contest/1904/problem/B
+MEX questions application
 ### Multiset
 
 ---

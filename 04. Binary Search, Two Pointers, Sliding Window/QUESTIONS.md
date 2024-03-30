@@ -1,5 +1,28 @@
 # Binary Search
 
+## [Sqrtx](https://leetcode.com/problems/sqrtx/)
+```c++
+bool isvalid(int n,int x){
+        return (long long)n*n <= (long long)x;
+    }
+int mySqrt(int x) {
+    int l = 0, r = x;
+    int ans = 0;
+    while(l <= r){
+        int m = l + (r-l)/2;
+        if(isvalid(m,x)){
+            ans = m;
+            l = m+1;
+        }
+        else{
+            r = m-1;
+        }
+    }
+    return ans;
+}
+```
+
+
 ## [Array Division](https://cses.fi/problemset/task/1085)
 ```c++
 bool isvalid(vector<int> v, int mid, int n, int k){

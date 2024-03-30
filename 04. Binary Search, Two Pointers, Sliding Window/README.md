@@ -6,12 +6,18 @@
 - **[Sliding Window](#sliding-window)**
 
 # Binary Search
-> [Leetcode Guide](https://leetcode.com/problems/binary-search/solutions/423162/Binary-Search-101-The-Ultimate-Binary-Search-Handbook/)
+> [Binary Search Handbook](https://leetcode.com/problems/binary-search/solutions/423162/Binary-Search-101-The-Ultimate-Binary-Search-Handbook/)
+[Leetcode Study Plan](https://leetcode.com/studyplan/binary-search/)
 ```c++
+bool anotherFunction(vector<int> v, int mid, int N, int q){
+    //Some check function
+}
+
+
 int l = 0, r = n-1;
 while(l <= r){
     int m = l + (r-l)/2
-    if(v[m] == target){
+    if(v[m] == target){ //Replaced with if(anotherFunction)
         return mid;
     }
     if(v[m] < target){
@@ -27,14 +33,17 @@ OR
 int l = -1, r = n;
 while (r - l > 1) {
     int m = (l + r) / 2;
-    if (k < a[m]) {
-        r = m; // a[l] <= k < a[m] <= a[r]
-    } else {
+    if (a[m] <= k){
         l = m; // a[l] <= a[m] <= k < a[r]
     }
+    else {
+        r = m; // a[l] <= k < a[m] <= a[r]
+    }
 }
-// l will be lower bound, r will be upper bound
+// l+1 will be lower bound, r+1 will be upper bound
 ```
+^^ make this better
+
 For array with even elements,
 ```c++
 mid = left + (right - left)/2       //Left/lower mid
@@ -60,6 +69,6 @@ Array must be sorted for these to work
 ```
 
 # Two Pointer
-
+https://codeforces.com/problemset/submission/451/253931960
 # Sliding Window
 https://codeforces.com/problemset/problem/279/B

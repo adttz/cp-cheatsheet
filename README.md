@@ -1,15 +1,15 @@
 # Competitive Programming Cheatsheet
 
 
-> cranking my hog
+> cranking my hog 
 
 
 ---
 # Table of Contents
-1. [STL, Prefix Sum](https://github.com/9nvou/cp-cheatsheet/tree/main/01.%20STL%2C%20Prefix%20Sum)
+1. [STL & Basics](https://github.com/9nvou/cp-cheatsheet/tree/main/01.%20STL%20%26%20Basics)
 2.  [Sorting](https://github.com/9nvou/cp-cheatsheet/tree/main/02.%20Sorting)
 3.  [Greedy](https://github.com/9nvou/cp-cheatsheet/tree/main/03.%20Greedy)
-4.  [Binary Search, Two Pointers, Slinding Window](https://github.com/9nvou/cp-cheatsheet/tree/main/04.%20Binary%20Search%2C%20Two%20Pointers%2C%20Slinding%20Window)
+4.  [Binary Search, Two Pointers, Sliding Window](https://github.com/9nvou/cp-cheatsheet/tree/main/04.%20Binary%20Search%2C%20Two%20Pointers%2C%20Sliding%20Window)
 5.  [Recursion, Backtracking, Divide & Conquer](https://github.com/9nvou/cp-cheatsheet/tree/main/05.%20Recursion%2C%20Backtracking%2C%20Divide%20%26%20Conquer)
 6. [Stack, Queue, Priority Queue](https://github.com/9nvou/cp-cheatsheet/tree/main/06.%20Stack%2C%20Queue%2C%20Priority%20Queue)
 7. [Policy based Data Structure](https://github.com/9nvou/cp-cheatsheet/tree/main/07.%20Policy%20based%20Data%20Structure)
