@@ -16,11 +16,12 @@ using namespace std
         - ***[Multiset](#multiset)***
 - **[Getting Started](#getting-started)**
     - [Time Complexities](#time-complexities)
+    - [Modular Arithmetic](#modular-arithmetic)
     - [Prefix Sum](#prefix-sum)
         - ***[Maximum Subarray Sum](#maximum-subarray-sum)***
         - ***[2d Prefix Sum](#2d-prefix-sum)***
     - [Suffix Sum](#suffix-sum)
-    - [Modular Arithmetic](#modular-arithmetic)
+    
 
 
 # Data Structures 
@@ -122,17 +123,17 @@ pair1.swap(pair2);
 ```
 
 
-- Pair of vectors:
+- <ins> Pair of vectors: </ins>
 
 ```c++
-pair<vector<int>,vector<string>> vp;
-vp.first.push_back("abc");
-vp.first.push_back("def")
-vp.second.push_back(19);
-vp.second.push_back(21);  
+pair<vector<int>,vector<string>> pv;
+pv.first.push_back("abc");
+pv.first.push_back("def")
+pv.second.push_back(19);
+pv.second.push_back(21);  
 ```
 
-- Vector of pairs
+- <ins> Vector of pairs: </ins>
 
 ```c++
 vector<pair<int,int>> v;
@@ -290,6 +291,27 @@ Another possibility is that the algorithm uses a data structure where each opera
 
 </center>
 
+## Modular Arithmetic
+mod = 1e9 + 7
+```c++
+long long x = 1;
+for (int i = 2; i <= n; i++) {
+    x = (x*i)%mod; //Calculates n!, modulo m
+}
+cout << x%mod << "\n";
+```
+
+If remainder is negative,
+```c++
+sum = (sum % mod + mod) % mod;
+```
+OR
+```c++
+x = x%mod;
+if (x < 0) x += mod;
+```
+
+
 ## Prefix Sum
 ```c++
 vector<int> pf(n);
@@ -348,8 +370,7 @@ for(int i = 1; i < n; i++){
 
 
 ### 2D Prefix Sum
-> [Q. You are given an n x n grid representing the map of a forest. Each square is either empty or contains a tree. The upper-left square has coordinates (1,1), and the lower-right square has coordinates (n,n). Your task is to process q queries of the form: how many trees are inside a given rectangle in the forest?
-](https://cses.fi/problemset/task/1652)
+> [Given an n x n grid, with upper-left (1,1) & lower-right (n,n),for q queries find number of trees inside the given rectangle](https://cses.fi/problemset/task/1652)
 
 ![2d prefix sum](/images/2dprefixsum.png)
 ![Submatrix sum](/images/submatrixsum.png)
@@ -361,24 +382,4 @@ sf[n-1] = a[n-1];
 for(int i = n - 2; i >= 0; i--){
     sf[i] = sf[i+1] + a[i];
 }
-```
-## Modular Arithmetic
-m = 1e9 + 7
-Calculate n!, modulo m:
-```c++
-long long x = 1;
-for (int i = 2; i <= n; i++) {
-    x = (x*i)%m;
-}
-cout << x%m << "\n";
-```
-
-If remainder is negative,
-```c++
-sum = (sum % mod + mod) % mod;
-```
-or
-```c++
-x = x%m;
-if (x < 0) x += m;
 ```
