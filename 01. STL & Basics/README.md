@@ -4,24 +4,26 @@
 using namespace std
 ```
 # Table of Contents
-- **[Data Structures](#data-structures)**
-    - [Array](#array)
-    - [Vector](#vector)
-    - [Pair](#pair)
-    - [Maps](#maps)
-        - ***[Ordered Map](#ordered-map)***
-        - ***[Unordered Map](#unordered-map)***
-    - [Sets](#sets)
-        - ***[Set](#set)***
-        - ***[Multiset](#multiset)***
-- **[Getting Started](#getting-started)**
-    - [Time Complexities](#time-complexities)
-    - [Modular Arithmetic](#modular-arithmetic)
-    - [Prefix Sum](#prefix-sum)
-        - ***[Maximum Subarray Sum](#maximum-subarray-sum)***
-        - ***[2d Prefix Sum](#2d-prefix-sum)***
-    - [Suffix Sum](#suffix-sum)
+**[Data Structures](#data-structures)**
+- [Array](#array)
+- [Vector](#vector)
+- [Pair](#pair)
+- [Maps](#maps)
+    - ***[Ordered Map](#ordered-map)***
+    - ***[Unordered Map](#unordered-map)***
+- [Sets](#sets)
+    - ***[Unordered Set](#unordered-set)***
+    - ***[Sorted Set](#sorted-set)***
+    - ***[Multiset](#multiset)***
     
+**[Getting Started](#getting-started)**
+- [Time Complexities](#time-complexities)
+- [Modular Arithmetic](#modular-arithmetic)
+- [Prefix Sum](#prefix-sum)
+    - ***[Maximum Subarray Sum](#maximum-subarray-sum)***
+    - ***[2d Prefix Sum](#2d-prefix-sum)***
+- [Suffix Sum](#suffix-sum)
+
 
 
 # Data Structures 
@@ -32,7 +34,8 @@ template < class T, size_t N > class array;
 ```
 - T : Type of the elements contained. Aliased as member type array::value_type.
 - N : Size of the array, in terms of number of elements.
-<br />
+
+#### Initialization
 
 ```c++
 int arr[n]; // Array of n elements, with 0 indexing.
@@ -50,7 +53,7 @@ int row = grid.size();
 int column = grid[0].size();
 
 ```
-<br />
+#### Basic Functions
 
 ```c++
 arr.begin() //Returns iterator to beginning
@@ -70,18 +73,18 @@ template < class T, class Alloc = allocator<T> > class vector
 ```
 - T : Type of the elements.
 - Alloc : Type of the allocator object used to define the storage allocation model.
-<br />
+
+#### Initialization
 
 ```c++
 vector <object_type> vector_name;
 vector<int> nums(n,1) // Initialize a vector of length n, having a value 1
 vector<string> colour{"Blue", "Red", "Orange"};
 
-vector< vector<int> > matrix(3, vector<int>(4, 0))
-// Define a 2D vector with 3 rows and 4 columns, initialized with zeros
+vector< vector<int> > matrix(n, vector<int>(m, 0))
+// Define a 2D vector with n rows and m columns, initialized with zeros
 ```
-
-<br />
+#### Functions
 
 ```c++
 vector<int> v(n);
@@ -106,8 +109,7 @@ sort(v.rbegin(), v.rend()); //Sorts vector in descending order
 template <class T1, class T2> struct pair;
 ```
 - T1, T2 : the types of the elements that the pair stores.
-
-<br />
+#### Initialization
 
 ```c++
 pair<int,int> pair1(13,37);
@@ -147,6 +149,11 @@ for(int i = 0; i < n; i++){
 for(auto it = data.begin(); it != data.end(); ++it) {
     cout << it->first << " " << it->second << endl;
 }
+
+// Sort a vector by its second element
+sort(v.begin(), v.end(), [](const pair<int,int> &left, const pair<int,int> &right) {
+    return left.second < right.second;
+});
 ```
 
 
@@ -163,7 +170,7 @@ class Allocator = std::allocator<std::pair<const Key, T>>
 - Implemented using Red-Black tree
 - Time complexity for search/insertion/deletion - <ins> O(logN) </ins>
 
-<br />
+#### Initialization
 
 ```c++
 map<key,value> m;
@@ -173,7 +180,7 @@ mp['a'] = 200;
 mp.insert(pair<char, int>('c',100));
 ```
 
-<br />
+#### Iterators 
 
 ```c++
 //Alternatively, for defining iterator : map<char, int>::iterator it;
@@ -190,8 +197,7 @@ for (auto &x: mymap) {
     cout << x.first << ": " << x.second << endl;
 }
 ```
-
-<br />
+#### Traversal
 
 ```c++
 map<char,int> mymap;
@@ -202,6 +208,7 @@ mymap['b']=40;
 mymap['c']=60;
 mymap['d']=80;
 mymap['e']=100;
+cout << mymap.count('a') // 1
 
 itlow=mymap.lower_bound('b');  // itlow points to b
 itup=mymap.upper_bound('d');   // itup points to e (not d!)
@@ -212,7 +219,6 @@ for (auto it=mymap.begin(); it!=mymap.end(); ++it){
 }   // a = 20 e = 100
 ```
 ### Unordered Map
-// add .count() and some other functions
 
 ```c++
 template<class Key, class T, class Hash = std::hash<Key>,class KeyEqual = std::equal_to<Key>,
@@ -244,15 +250,82 @@ class Allocator = std::allocator<std::pair<const Key, T>>
     //Usage: unordered_map < int, int, custom_hash > safe_map;
     </code></pre>
     </details>       
-
+    
+```c++
+unordered_map<string, double> umap = { {"One", 1}, {"Two", 2}, {"Three", 3} }; 
+if (umap.find(key) == umap.end())
+    cout << key << "Not Found" << endl;
+```
 ## Sets
 
-### Set
-https://codeforces.com/contest/1904/problem/A
-https://codeforces.com/contest/1904/problem/B
-MEX questions application
-### Multiset
+>>https://codeforces.com/contest/1904/problem/A
+>>https://codeforces.com/contest/1904/problem/B
+>>MEX questions application
 
+### Unordered Set
+This is retarded. Use ordered sets instead.
+
+### Sorted Set
+```c++
+template < class T,Compare = less<T>,class Alloc = allocator<T>> class set;
+```
+-  Elements in the set are immutable, i.e., the elements can only be inserted or deleted but cannot be modified.
+- Implemented as binary search trees(Red-Black Tree)
+- Time complexity of insertion / deletion is O(log n)
+
+#### Initialization
+
+```c++
+set <data_type> set_name;
+set <data_type, greater<data_type>> set_name;   //Set in Descending order
+set<int> s2(s1);
+int arr[] = {1, 24, 52, 6, 78, 98};
+set<int> s3(arr, arr+3); // 1 24 52
+
+set<int, greater<int> > s1;
+s1.insert(10); s1.insert(5); s1.insert(12); s1.insert(4);
+
+for (auto i : s1) {
+    cout << i << ' ';
+}
+```
+#### Iterators
+```c++
+set<int> s = {12,43,234,65,34,54,3,2,87,213,76,454};
+set < int > ::iterator it; 
+it = s.begin();
+cout << *it << endl; // 2
+it = s.end();
+it--;
+cout << *it << endl; // 454
+
+it = s.lower_bound(10);
+cout << "The lower_bound of 10 is " << * it << "\n"; // 12
+// returns an iterator to the least element greater than or equal to some element k.
+it = s.upper_bound(12);
+cout << "The upper_bound of 12 is " << * it << "\n"; // 34
+// returns an iterator to the least element strictly greater than some element k.
+```
+
+### Multiset
+- Sorted set that allows copies of the same element.
+- count() returns count of element, but takes O(N) time.
+```c++
+multiset<int> ms;
+ms.insert(1);                  // [1]
+ms.insert(14);                 // [1, 14]
+ms.insert(9);                  // [1, 9, 14]
+ms.insert(2);                  // [1, 2, 9, 14]
+ms.insert(9);                  // [1, 2, 9, 9, 14]
+ms.insert(9);                  // [1, 2, 9, 9, 9, 14]
+cout << ms.count(4)  // 0
+cout << ms.count(9)  // 3
+cout << ms.count(14) // 1
+ms.erase(ms.find(9));   // Removes a value once
+cout << ms.count(9)  // 2
+ms.erase(9);            // Removes all occurences of a value
+cout << ms.count(9)  // 0
+```
 ---
 # Getting Started
 
