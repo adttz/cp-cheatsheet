@@ -158,7 +158,7 @@ sort(v.begin(), v.end(), [](const pair<int,int> &left, const pair<int,int> &righ
 
 
 ## Maps
-### Ordered Map
+## Ordered Map
 ```c++
 template< class Key, class T, class Compare = std::less<Key>,
 class Allocator = std::allocator<std::pair<const Key, T>>
@@ -257,13 +257,14 @@ if (umap.find(key) == umap.end())
     cout << key << "Not Found" << endl;
 ```
 ## Sets
-
->>https://codeforces.com/contest/1904/problem/A
->>https://codeforces.com/contest/1904/problem/B
->>MEX questions application
+```
+https://codeforces.com/contest/1904/problem/A
+https://codeforces.com/contest/1904/problem/B
+MEX questions application
+```
 
 ### Unordered Set
-This is retarded. Use ordered sets instead.
+This is retarded. Use regular sets instead.
 
 ### Sorted Set
 ```c++
@@ -292,9 +293,11 @@ for (auto i : s1) {
 #### Iterators
 ```c++
 set<int> s = {12,43,234,65,34,54,3,2,87,213,76,454};
+
 set < int > ::iterator it; 
 it = s.begin();
 cout << *it << endl; // 2
+
 it = s.end();
 it--;
 cout << *it << endl; // 454
@@ -302,6 +305,7 @@ cout << *it << endl; // 454
 it = s.lower_bound(10);
 cout << "The lower_bound of 10 is " << * it << "\n"; // 12
 // returns an iterator to the least element greater than or equal to some element k.
+
 it = s.upper_bound(12);
 cout << "The upper_bound of 12 is " << * it << "\n"; // 34
 // returns an iterator to the least element strictly greater than some element k.
