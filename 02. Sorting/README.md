@@ -1,14 +1,14 @@
 # Sorting
 # Table of Contents
-1. **[Sorting Algoritms](#sorting-algorithms)**
-    - [Bubble Sort](#bubble-sort)
-    - [Selection Sort](#selection-sort)
-    - [Insertion Sort](#insertion-sort)
-    - [Quick Sort](#quick-sort)
-    - [Heap Sort](#heap-sort)
-    - [Merge Sort](#merge-sort)
-    - [Counting Sort](#counting-sort)
-    ---
+**[Sorting Algoritms](#sorting-algorithms)**
+  - [Bubble Sort](#bubble-sort)
+  - [Selection Sort](#selection-sort)
+  - [Insertion Sort](#insertion-sort)
+  - [Quick Sort](#quick-sort)
+  - [Heap Sort](#heap-sort)
+  - [Merge Sort](#merge-sort)
+  - [Counting Sort](#counting-sort)
+---
 
 ![Time Complexity](/images/sorting.png)
 
@@ -77,9 +77,7 @@ int partition(int arr[], int low, int high)
 {
 	int pivot = arr[high]; 
 	int x = (low- 1); 
-
 	for (int y = low; y <= high - 1; y++) {
-		
 		if (arr[y] < pivot) {
 			x++; 
 			swap(&arr[x], &arr[y]);
@@ -91,13 +89,10 @@ int partition(int arr[], int low, int high)
 
 void quickSort(int arr[], int low, int high)
 {
-	if (low < high) {
-		
+	if (low < high) {		
 		int p = partition(arr, low, high);
-        
         // quick sort elements on the left recursively
 		quickSort(arr, low, p - 1);
-		
 		// quick sort elements on the right recursively
 		quickSort(arr, p + 1, high);
 	}
@@ -112,6 +107,49 @@ int main(){
 
 ## Merge Sort
 
+```c++
+void merge(int a[],int l, int r, int mid){
+    int n1 = mid - l + 1;
+    vector<int> left(n1);
+    int n2 = r - mid;
+    vector<int> right(n2);
+    for(int i = 0; i < n1; i++){
+        left[i] = a[l+i];
+    }
+    for(int j = 0; j < n2; j++){
+        right[i] = a[m + 1 + j];
+    } 
+    int i = 0, j = 0, k = l;
+    while(i < n1 && j < n2){
+        if(left[i] <= right[i]){
+            a[k] = left[i];
+            i++;
+        }
+        else{
+            a[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+    while(i < n1){
+        a[k] = left[i];
+        i++; k++;
+    }
+    while(j < n2){
+        a[k] = right[j];
+        j++; k++;
+    }
+}
+// Call it in main using mergeSort(a,0,n-1)
+void mergeSort(int *array, int l, int r){
+    int mid = l + (r-l)/2;
+    while(l < r){
+        mergeSort(array,l,m);
+        mergeSort(array,m+1,r);
+        merge(array,l,m,r);
+    }
+}
+```
 
 ## Counting Sort
 
