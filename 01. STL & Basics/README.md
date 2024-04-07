@@ -404,7 +404,7 @@ for(int i = 1; i < n; i++){
 <details>
         <summary>Using prefix sum</summary>
     <pre><code lang="c++">
-    vector<int> pfx(n);
+    vector< int > pfx(n);
     pfx[0] = v[0];  
     for (int i = 0; i < n; i++) {
         pfx[i] = pfx[i - 1] + v[i];  
@@ -422,7 +422,7 @@ for(int i = 1; i < n; i++){
 <details>
         <summary>Using DP</summary>
     <pre><code lang="c++">
-    vector<int> dp(nums.size());
+    vector< int > dp(nums.size());
     dp[0] = nums[0];
     int ans = dp[0];
     for(int i = 1; i < nums.size(); i++){
