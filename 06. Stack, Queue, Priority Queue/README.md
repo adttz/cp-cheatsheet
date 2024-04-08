@@ -112,7 +112,7 @@ q.push("ABC");
 q.push("DEF");
 q.push("GHI");
 while(!q.empty()){
-    cout << q.front << endl;    // ABC DEF GHI
+    cout << q.front() << endl;    // ABC DEF GHI
     q.pop();
 }
 ```
