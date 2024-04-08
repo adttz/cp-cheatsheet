@@ -68,7 +68,7 @@ class Solution
     }
 };
     </code></pre>
-    </details>  
+</details>  
 
 <details>
         <summary>Nearest Smaller Values</summary>
@@ -95,7 +95,7 @@ void solve()
     }
 }
     </code></pre>
-    </details>  
+</details>  
 
 
 
