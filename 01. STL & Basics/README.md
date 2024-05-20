@@ -154,6 +154,11 @@ for(auto it = data.begin(); it != data.end(); ++it) {
 sort(v.begin(), v.end(), [](const pair<int,int> &left, const pair<int,int> &right) {
     return left.second < right.second;
 });
+
+bool comp(const pair<int,int> &a,const pair<int,int> &b)
+{
+       return a.second<b.second;
+}
 ```
 
 
