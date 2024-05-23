@@ -36,23 +36,29 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...)
 #endif
 
-
-
 void solve() {
-    int n; 
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
     vi height(n);
-    for(int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++) {
         cin >> height[i];
     }
-    vi dp(n,INT_MAX);
-    dp[0] = 0;
-    dp[1] = abs(height[1] - height[0]);
-    for(int i = 2; i < n; i++){
-        dp[i] = min(dp[i-1] + abs(height[i] - height[i-1]),dp[i-2] + abs(height[i] - height[i-2]));
+    
+    vi dp(n, LLONG_MAX);
+    dp[0] = 0;  // Starting at the first stone has no cost
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 1; j <= k; j++) {
+            if (i + j < n) {
+                dp[i + j] = min(dp[i + j], dp[i] + abs(height[i + j] - height[i]));
+            }
+        }
     }
-    cout << dp[n-1] << endl;
+    
+    cout << dp[n - 1] << endl;  // The minimum cost to reach the last stone
 }
+
+
 
 signed main(){
     ios_base::sync_with_stdio(false); cin.tie(0);
