@@ -39,6 +39,7 @@
 
 ## Roadmap :  
 - [Neetcode 150](https://neetcode.io/roadmap)
+- [TLE Eliminators CP-31](https://www.tle-eliminators.com/cp-sheet)
 - [Striver's A2Z DSA Sheet](https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/)
 - [AlgoManiax CP Guide](https://docs.google.com/document/d/1sT6ybwrSEn9237d4riTvvqUqU2AXuFtuZYSjzWEVoeo/)
 - [Striver's SDE Sheet](https://takeuforward.org/interviews/strivers-sde-sheet-top-coding-interview-problems/)
