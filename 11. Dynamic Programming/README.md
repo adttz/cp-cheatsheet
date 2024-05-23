@@ -66,6 +66,7 @@ public:
 
 
 ## Resources
+[AtCoder DP Contest](https://atcoder.jp/contests/dp)
 
 [DP tutorial and problem list](https://codeforces.com/blog/entry/67679)
 
