@@ -1,7 +1,7 @@
 # Competitive Programming Cheatsheet
 
 
-> cranking my hog 
+> tfw 6 cg
 
 
 ---
