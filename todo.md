@@ -11,3 +11,6 @@
 - Prime factorization
 - Sieve
 - LCM / GCD
+
+# Bit manipulation
+- 1ll << i => pow(2,i)
