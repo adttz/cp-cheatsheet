@@ -441,12 +441,12 @@ for(int i = 1; i < n; i++){
 <details>
         <summary>Using Kadane's</summary>
     <pre><code lang="c++">
-    int mx = 0, curr = 0;
-    for(int i = 0; i < n; i++){
-        curr += v[i];
-        curr = max(curr,0ll);
-        mx = max(mx,curr);
-    };
+    int curr = 0, ans = INT_MIN;
+        for(int i = 0; i < n; i++){
+            curr = max(nums[i], curr + nums[i]);
+            ans = max(curr,ans);
+        }
+    return ans;
     </code></pre>
     </details>  
 
