@@ -152,8 +152,34 @@ void mergeSort(int *array, int l, int r){
 ```
 
 ## Counting Sort
+- Stable sorting algorithm
+```c++
+vector<int> sortArray(vector<int>& nums) {
+        if (nums.empty()) return nums;
 
+        int minValue = *min_element(nums.begin(), nums.end());  // 0 for non-negative
+        int maxValue = *max_element(nums.begin(), nums.end());
 
+        int range = maxValue - minValue + 1;    // m + 1 for non-negative
+        vector<int> count(range, 0);
+        vector<int> output(nums.size());
+
+        for (int num : nums) {
+            count[num - minValue]++;
+        }
+
+        for (int i = 1; i < range; ++i) {
+            count[i] += count[i - 1];
+        }
+
+        for (int i = nums.size() - 1; i >= 0; --i) {
+            output[count[nums[i] - minValue] - 1] = nums[i];
+            count[nums[i] - minValue]--;
+        }
+
+        return output;
+    }
+```
 
 
 
