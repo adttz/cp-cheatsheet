@@ -23,7 +23,7 @@
 ---
 
 ## Reference material: 
-- [Competitive Programmer's Handbook](https://cses.fi/book/book.pdf) by Antti Laaksonen
+- [Competitive Programmer's Handbook](https://cses.fi/book/book.pdf)
 - [USACO Guide](https://usaco.guide)
 - [CP-Algorithms](https://cp-algorithms.com/)
 - [CSES](https://cses.fi/problemset/)

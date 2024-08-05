@@ -120,3 +120,12 @@ while(!q.empty()){
 
 
 # Priority Queue
+
+
+### Heap
+#### Max heap
+- Parent > Child
+- Root = arr[1]
+- Left child = 2*i
+- Right child = 2*i + 1
+- Parent = Floor(i/2)
