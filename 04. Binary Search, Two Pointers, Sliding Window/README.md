@@ -28,21 +28,6 @@ while(l <= r){
     }
 } 
 ```
-OR
-```c++
-int l = -1, r = n;
-while (r - l > 1) {
-    int m = (l + r) / 2;
-    if (a[m] <= k){
-        l = m; // a[l] <= a[m] <= k < a[r]
-    }
-    else {
-        r = m; // a[l] <= k < a[m] <= a[r]
-    }
-}
-// l+1 will be lower bound, r+1 will be upper bound
-```
-^^ make this better
 
 For array with even elements,
 ```c++
@@ -56,19 +41,24 @@ Array must be sorted for these to work
 #### Upper Bound
 > upper_bound (begin, end, value): gives the position of the first element in the [begin, end) range that is strictly greater than value
 ```c++
-    vector<int> v={10,20,30,30,20,10,10,20};
+vector<int> v={10,20,30,30,20,10,10,20};
 
-    sort(v.begin(), v.end());                
+sort(v.begin(), v.end());                
 
-    vector<int>::iterator low,up;             // 10 10 10 20 20 20 30 30
-    low=lower_bound(v.begin(), v.end(), 20);  //          ^
-    up= upper_bound(v.begin(), v.end(), 20);  //                   ^
+vector<int>::iterator low,up;             // 10 10 10 20 20 20 30 30
+low=lower_bound(v.begin(), v.end(), 20);  //          ^
+up= upper_bound(v.begin(), v.end(), 20);  //                   ^
 
-    cout << "lower_bound index " << (low- v.begin()) << endl;// 3
-    cout << "upper_bound index " << (up - v.begin()) << endl;// 6
+cout << "lower_bound index " << (low- v.begin()) << endl;// 3
+cout << "upper_bound index " << (up - v.begin()) << endl;// 6
 ```
 
 # Two Pointer
-https://codeforces.com/problemset/submission/451/253931960
+```c++
+int l = 0, r = n-1;
+while(l < r){
+    l++, r--, etc
+}
+```
+
 # Sliding Window
-https://codeforces.com/problemset/problem/279/B
