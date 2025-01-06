@@ -1,53 +1,16 @@
-> Those who can not remember the past are codemne-
-
-**STFU!!**
-
 # Table of Contents
 **[Dynamic Programming](#dynamic-programming)**
-- [Recursive vs Iterative](#recursive-vs-iterative)
 - [Basic Theory](#basic-theory)
-
-- [Knapsack](#knapsack-dp)
+- [Recursive vs Iterative](#recursive-vs-iterative)
 
 **[Resources](#resources)**
 
 # Dynamic Programming
-### Recursive vs Iterative
-- Recursive approach is Top-Down (Memoization)
-- Iterative approach is Bottop-Up (Tabulation)
 
-Example. Fibonacci series
-- Using Memoization 
-```c++
-class Solution {
-public:
-    vector< int > dp(n+1,0);
-    int fib(int n) {
-        if(n <= 1) return n;
-        if(dp[n] != 0) return dp[n];
-        return dp[n] = fib(n-1) + fib(n-2);
-    }
-};
-```
-- Using Tabulation
-```c++
-class Solution {
-public:
-    int fib(int n) {
-        if(n == 0 || n == 1) return n;
-        vector< int > dp(n+1,-1);
-        int dp[0] = 0; int dp[1] = 1;
-        for(int i = 2; i <= n; i++){
-            dp[i]= dp[i - 1]+ dp[i - 2];
-        }
-        return dp[n];
-    }
-};
-```
-#### Basic Theory:
+### Basic Theory:
 
 - States : Represents the value(s) that the discarded information was compressed to, and also represents the subproblems we solve to build up to the main problem.
-    - In Knapsack promlen, our state can be defined by two parameters index and weight i.e dp[index][weight].
+    - In Knapsack problem, our state can be defined by two parameters index and weight i.e dp[index][weight].
 <br>
 
 - Transitions : Represents the way that states interact with each other
@@ -63,7 +26,36 @@ public:
     - Recursive can only be pull dp.
     - Push DP "pushes" answer to future DP values (iterative solution) dp(r+1,c) += dp(r,c); dp(r,c+1) += dp(r,c)
 
+### Recursive vs Iterative
+- Top-down (memoization)
+    -  Start from highest level of problem
+    - Check if we have solved current sub-problem
+    - Computes only those solutions which are needed
+- Bottom-Up (Tabulation)
+    - Start at the bottom and work our way to the top 
+    - Calculates all solutions in the range
 
+Nth fibonacci number
+- Recursive
+```c++
+int fibo(int n){
+    if(n <= 1){
+        return n;
+    }
+    return fibo(n-1) + fibo(n-2);
+}
+```
+- Iterative
+```c++
+int fibo(int n){
+    vector<int> dp(n+1,0);
+    dp[0] = 0, dp[1] = 1;
+    for(int i = 2; i <= n; i++){
+        dp[i] = dp[i-1] + dp[i-2];
+    }
+    return dp[n];
+}
+```
 
 ## Resources
 [AtCoder DP Contest](https://atcoder.jp/contests/dp)

@@ -41,6 +41,9 @@ template < class T, size_t N > class array;
 int arr[n]; // Array of n elements, with 0 indexing.
 //0 1 2 3 4 ..... n-1
 
+// In a function, array of size 1e6 can be created 
+// In global scope, array of size 1e8 can be created 
+
 string cars[4] = {"Volvo", "BMW", "Ford", "Mazda"};
 int val[row][col]; //2d array, must know row and col before defining this
 for (int i = 0; i < row; i++){
