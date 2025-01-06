@@ -41,6 +41,9 @@ template < class T, size_t N > class array;
 int arr[n]; // Array of n elements, with 0 indexing.
 //0 1 2 3 4 ..... n-1
 
+// In a function, array of size 1e6 can be created 
+// In global scope, array of size 1e8 can be created 
+
 string cars[4] = {"Volvo", "BMW", "Ford", "Mazda"};
 int val[row][col]; //2d array, must know row and col before defining this
 for (int i = 0; i < row; i++){
@@ -91,7 +94,6 @@ vector<int> v(n);
 vector<int> w(m)
 
 v.push_back(x);     //Add element at the end
-v.pop_back();       //Delete last element
 
 v.swap(w)           //Exchange elements of v and w
 v.clear()           //Clears elements of vector
@@ -99,6 +101,11 @@ v.clear()           //Clears elements of vector
 v.erase(i)          //Removes a single element at index i
 v.erase(v.begin(), v.begin() + x)           //Erase range [first,last)
 v.erase(unique(v.begin(),v.end()),v.end()); //Remove duplicates from vector
+
+v.front()            //First element
+v.erase(v.begin())   //Pop first element
+v.back()             //Last element
+v.pop_back()         //Pop last element
 
 sort(v.begin(), v.end());   //Sorts vector in ascending order
 sort(v.rbegin(), v.rend()); //Sorts vector in descending order
