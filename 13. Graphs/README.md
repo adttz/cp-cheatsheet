@@ -68,5 +68,36 @@ for(int i = 0; i < m; i++){
 # Graph traversal
 ## DFS (Depth First Search)
 
+```c++
+void dfs(int v){
+    visited[v] = true;
+    for(auto u : adj[v]){
+        if(!visited[u])
+            dfs(u);
+    }
+}
+```
+
+
 ## BFS (Breadth First Search)
 
+```c++
+void bfs(int startNode, vector<vector<int>>& adj){
+    vector<bool> visited(adj.size(), false);
+    queue<int> q;
+
+    visited[startNode] = true;
+    q.push(startNode);
+    while(!q.empty()){
+        int current = q.front();
+        q.pop();
+
+        for(int neighbour : adj[current]){
+            if(!visited[neighbour]){
+                visited[neighbour] = true;
+                q.push(neighbour);
+            }
+        }
+    }
+}
+```
