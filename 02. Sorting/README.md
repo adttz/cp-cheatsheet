@@ -20,11 +20,12 @@
 - The largest element is moved to the rightmost end at first. 
 - This process is then continued to find the second largest and place it and so on until the data is sorted.
 ```c++
-int i, j;
-for (i = 0; i < n - 1; i++) {
-    for (j = 0; j < n - i - 1; j++) {
-        if (arr[j] > arr[j + 1])
-            swap(a[j], a[j+1]);
+void bubbleSort(vector<int> &arr, int n){
+    for (int i = 0; i < n - 1; i++) {  
+        for (int j = 0; j < n - i - 1; j++) {  
+            if (arr[j] > arr[j + 1])  
+                swap(arr[j], arr[j + 1]);  
+        }
     }
 }
 ```
@@ -32,29 +33,39 @@ for (i = 0; i < n - 1; i++) {
 
 - Repeatedly selects the smallest element from the unsorted portion of the list and moves it to the sorted portion of the list. 
 ```c++
-int i, j, min_idx; 
-for (i = 0; i < n - 1; i++) { 
-    min_idx = i; 
-    for (j = i + 1; j < n; j++) {   // Find the minimum element in
-        if (arr[j] < arr[min_idx])  // unsorted array
-            min_idx = j; 
+void selectionSort(vector<int> &arr, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int min_idx = i; 
+        
+        // Find the minimum element in the unsorted part
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[min_idx]) 
+                min_idx = j;
+        }
+
+        // Swap the found minimum element with the first element of the unsorted part
+        if (min_idx != i)
+            swap(arr[min_idx], arr[i]);
     }
-    if (min_idx != i)               // Swap the minimum element
-        swap(arr[min_idx], arr[i]); // with the first element(i)
-} 
+}
 ```
 ## Insertion Sort
 - Compare current element (key) to its predecessor, if the key is smaller, compare it to the elements before. Move the greater elements up to make space for the swapped element.
 ```c++
-int i, key, j;
-for (i = 1; i < n; i++) {
-    key = arr[i];
-    j = i - 1;
-    while (j >= 0 && arr[j] > key) {    // Move elements of arr[0..i-1],
-        arr[j + 1] = arr[j];            // that are greater than key,
-        --j;                            // to one position ahead of their 
-    }                                   // current position
-    arr[j + 1] = key;       // Replace the ith element with the key  
+void insertionSort(vector<int> &arr, int n) {
+    int i, key, j;
+    for (i = 1; i < n; i++) {
+        key = arr[i];  // Current element to be placed correctly
+        j = i - 1;
+
+        // Move elements greater than key one step ahead
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            --j;
+        }
+        
+        arr[j + 1] = key;  // Place key at the correct position
+    }
 }
 ```
 ## Quick Sort
@@ -97,10 +108,6 @@ void quickSort(int arr[], int low, int high)
 		quickSort(arr, p + 1, high);
 	}
 }
-
-int main(){
-    quickSort(arr, 0, size - 1);
-}
 ```
 ## Heap Sort
 
@@ -108,42 +115,41 @@ int main(){
 ## Merge Sort
 
 ```c++
-void merge(int a[],int l, int r, int mid){
+void merge(vector<int> &v,int l, int r, int mid){
     int n1 = mid - l + 1;
     vector<int> left(n1);
     int n2 = r - mid;
     vector<int> right(n2);
     for(int i = 0; i < n1; i++){
-        left[i] = a[l+i];
+        left[i] = v[l + i];
     }
-    for(int j = 0; j < n2; j++){
-        right[i] = a[m + 1 + j];
+    for(int i = 0; i < n2; i++){
+        right[i] = v[mid + 1 + i];
     } 
     int i = 0, j = 0, k = l;
     while(i < n1 && j < n2){
-        if(left[i] <= right[i]){
-            a[k] = left[i];
+        if(left[i] <= right[j]){
+            v[k] = left[i];
             i++;
         }
         else{
-            a[k] = right[j];
+            v[k] = right[j];
             j++;
         }
         k++;
     }
     while(i < n1){
-        a[k] = left[i];
+        v[k] = left[i];
         i++; k++;
     }
     while(j < n2){
-        a[k] = right[j];
+        v[k] = right[j];
         j++; k++;
     }
 }
-// Call it in main using mergeSort(a,0,n-1)
-void mergeSort(int *array, int l, int r){
-    int mid = l + (r-l)/2;
-    while(l < r){
+void mergeSort(vector<int> &array, int l, int r){
+    if(l < r){
+        int mid = l + (r-l)/2;
         mergeSort(array,l,m);
         mergeSort(array,m+1,r);
         merge(array,l,m,r);
@@ -154,31 +160,34 @@ void mergeSort(int *array, int l, int r){
 ## Counting Sort
 - Stable sorting algorithm
 ```c++
-vector<int> sortArray(vector<int>& nums) {
-        if (nums.empty()) return nums;
+void countingSort(vector<int>& nums) {
+    if (nums.empty()) return nums;  // Edge case: empty array
 
-        int minValue = *min_element(nums.begin(), nums.end());  // 0 for non-negative
-        int maxValue = *max_element(nums.begin(), nums.end());
+    int maxValue = *max_element(nums.begin(), nums.end());
+    //int minValue = *min_element(nums.begin(), nums.end());
 
-        int range = maxValue - minValue + 1;    // m + 1 for non-negative
-        vector<int> count(range, 0);
-        vector<int> output(nums.size());
+    vector<int> count(maxValue + 1, 0);  // count(maxValue - minValue + 1, 0);
+    vector<int> output(nums.size());     
 
-        for (int num : nums) {
-            count[num - minValue]++;
-        }
-
-        for (int i = 1; i < range; ++i) {
-            count[i] += count[i - 1];
-        }
-
-        for (int i = nums.size() - 1; i >= 0; --i) {
-            output[count[nums[i] - minValue] - 1] = nums[i];
-            count[nums[i] - minValue]--;
-        }
-
-        return output;
+    for (int num : nums) {
+        count[num]++;  
+        // count[num - minValue]++;   // For handling negative numbers
     }
+
+    for (int i = 1; i <= maxValue; ++i) {
+        count[i] += count[i - 1];
+    }
+
+    for (int i = nums.size() - 1; i >= 0; --i) {
+        output[count[nums[i]] - 1] = nums[i];  
+        count[nums[i]]--;                      
+
+        // output[count[nums[i] - minValue] - 1] = nums[i];  // For handling negative numbers
+        // count[nums[i] - minValue]--;                      // Adjust count
+    }
+
+    nums = output;
+}
 ```
 
 

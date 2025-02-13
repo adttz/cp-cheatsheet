@@ -93,14 +93,24 @@ vector< vector<int> > matrix(n, vector<int>(m, 0))
 vector<int> v(n);
 vector<int> w(m)
 
-v.push_back(x);     //Add element at the end
+vector<int>::iterator it = v.begin();
+cout << *(it) << '\n';
+vector<int>::iterator it = v.end(); //Points to location just after last element
+//Use it-- to access last element
 
-v.swap(w)           //Exchange elements of v and w
-v.clear()           //Clears elements of vector
+v.push_back(x); //Add element at the end
 
-v.erase(i)          //Removes a single element at index i
+v.swap(w);  //Exchange elements of v and w
+v.clear();  //Clears elements of vector
+
+vector<int> v(2, 100);          //{100, 100}
+v.insert(v.begin(), 300);       //{300, 100, 100}
+v.insert(v.begin() + 1, 2, 10); //{300, 10, 10, 100, 100}
+
+v.erase(i)                                  //Removes a single element at index i
 v.erase(v.begin(), v.begin() + x)           //Erase range [first,last)
 v.erase(unique(v.begin(),v.end()),v.end()); //Remove duplicates from vector
+
 
 v.front()            //First element
 v.erase(v.begin())   //Pop first element
@@ -109,6 +119,7 @@ v.pop_back()         //Pop last element
 
 sort(v.begin(), v.end());   //Sorts vector in ascending order
 sort(v.rbegin(), v.rend()); //Sorts vector in descending order
+
 ```
 
 ## Pair
@@ -121,26 +132,17 @@ template <class T1, class T2> struct pair;
 ```c++
 pair<int,int> pair1(13,37);
 pair<int,int> pair2;
+pair<int,int> pair3 = {1, 3};
 pair2 = make_pair(420,69);
 pair<int,char> pair3 = {1, 'a'};
 
 pair<string,int> pair3;
-pair3.first = "Take no prisoners"
+pair3.first = "Bleh :3"
 pair3.second = 90
 
 pair1.swap(pair2);
 ```
 
-
-- <ins> Pair of vectors: </ins>
-
-```c++
-pair<vector<int>,vector<string>> pv;
-pv.first.push_back("abc");
-pv.first.push_back("def")
-pv.second.push_back(19);
-pv.second.push_back(21);  
-```
 
 - <ins> Vector of pairs: </ins>
 
@@ -148,6 +150,9 @@ pv.second.push_back(21);
 vector<pair<int,int>> v;
 v.push_back(make_pair(1, 3.14));
 v.push_back(make_pair(2, 2.718));
+int a, b; cin >> a >> b;
+v.push_back({a, b});
+v.emplace_back(a, b);
 
 vector<pair<int, char>> data = {{1, 'a'}, {2, 'b'}, {3, 'c'}};
 for(int i = 0; i < n; i++){
@@ -170,7 +175,7 @@ bool comp(const pair<int,int> &a,const pair<int,int> &b)
 
 
 ## Maps
-## Ordered Map
+### Ordered Map
 ```c++
 template< class Key, class T, class Compare = std::less<Key>,
 class Allocator = std::allocator<std::pair<const Key, T>>
