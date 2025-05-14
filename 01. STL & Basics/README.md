@@ -11,7 +11,8 @@
 7. [Pairs](#7-pairs)  
 8. [STL Algorithms](#8-stl-algorithms)  
 9. [Prefix and Suffix Sum](#9-prefix-and-suffix-sum)  
-10. [Modular Arithmetic](#10-modular-arithmetic)
+10. [Basic Math](#10-basic-math);
+11. [Modular Arithmetic](#11-modular-arithmetic)
 
 ## 1. Vectors
 ```cpp
@@ -22,8 +23,15 @@ vector<vector<int>> v(n, vector<int>(m,0));
 
 v.push_back(10);               // Add at end
 v.pop_back();                  // Remove last
-v.erase(i);                    // Room element at index i 
-v.erase(unique(v.begin(), v.end()), v.end());
+
+v.erase(i);                                         // Remove element at index i 
+v.erase(unique(v.begin(), v.end()), v.end());       // Set operation
+v.erase(remove(v.begin(), v.end(), x), v.end());    // Remove all instances of x
+
+auto it = find(v.begin(), v.end(), x);
+if (it != v.end()) {
+    v.erase(it);                // Removes only the first occurrence
+}
 
 int x = v.front()/back();      // First/Last element
 int n = v.size();              // Size
@@ -309,31 +317,73 @@ for(int i = n - 2; i >= 0; i--){
     sf[i] = sf[i+1] + v[i];
 }
 ```
+---
+## 10. Basic Math
 
+### GCD and LCM
+```cpp
+// Euclidian Algorithm
+int gcd(int a, int b){
+    if(a == 0){
+        return b;
+    }
+    return gcd(b % a, a);
+}
 
-## 10. Modular Arithmetic
+int lcm(int a, int b){
+    return (a / gcd(a,b)) * b;
+}
+```
+### Sieve of Eratosthenes
+
+```cpp
+vector<bool> is_prime(n+1, true);
+is_prime[0] = is_prime[1] = false;
+for (int i = 2; i * i <= n; i++) {
+    if (is_prime[i]) {
+        for (int j = i * i; j <= n; j += i)
+            is_prime[j] = false;
+    }
+}
+```
+### Binary Exponentiation
+
+```cpp
+int binpow(int a, int b){
+    int res = 1;
+    while(b > 0){
+        if(b & 1){      // if n is odd
+            res *= a;
+        }
+        a *= a;
+        b >>= 1;        // n = n / 2
+    }
+    return res;
+}
+```
+
+---
+
+## 11. Modular Arithmetic
 ```
 https://codeforces.com/blog/entry/72527
 https://usaco.guide/gold/modular?lang=cpp
 ```
 
 ```cpp
-const int MOD = 1e9 + 7;
+const int mod = 1e9 + 7;
 
-int binpow(int x, int y, int mod) {
+int binpow(int a, int b){
     int res = 1;
-    x %= mod;
-    while (y > 0) {
-        if (y & 1)
-            res = (res * x) % mod;
-        x = (x * x) % mod;
-        y >>= 1;
+    a %= mod;
+    while (b > 0) {
+        if (b & 1){
+            res = (res * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
     }
     return res;
-}
-
-int mod_inverse(int a, int mod) {
-    return mod_pow(a, mod - 2, mod);  // Only if mod is prime
 }
 ```
 ---
