@@ -1,18 +1,15 @@
 # Sorting
-# Table of Contents
-**[Sorting Algoritms](#sorting-algorithms)**
-  - [Bubble Sort](#bubble-sort)
-  - [Selection Sort](#selection-sort)
-  - [Insertion Sort](#insertion-sort)
-  - [Quick Sort](#quick-sort)
-  - [Heap Sort](#heap-sort)
-  - [Merge Sort](#merge-sort)
-  - [Counting Sort](#counting-sort)
----
+## Contents
+1. [Bubble Sort](#bubble-sort)
+2. [Selection Sort](#selection-sort)
+3. [Insertion Sort](#insertion-sort)
+4. [Quick Sort](#quick-sort)
+5. [Heap Sort](#heap-sort)
+6. [Merge Sort](#merge-sort)
+7. [Counting Sort](#counting-sort)
 
 ![Time Complexity](/images/sorting.png)
 
-# Sorting Algorithms
         
 ## Bubble Sort
 
