@@ -45,7 +45,7 @@ for (auto it = v.begin(); it != v.end(); it++){
 }
 ```
 
----
+
 
 ## 2. Sets and Multisets
 
@@ -82,7 +82,7 @@ for(int i = 0; i < n; i++){
 }
 ```
 
----
+
 
 ## 3. Maps and Unordered Maps
 
@@ -129,7 +129,7 @@ unordered_map<string, int> umap = { {"One", 1}, {"Two", 2}, {"Three", 3} };
 if (umap.find(key) == umap.end())
     cout << key << "Not Found" << endl;
 ```
----
+
 
 ## 4. Stacks and Queues
 
@@ -194,7 +194,7 @@ while(!q.empty()){
 }
 ```
 
----
+
 
 ## 5. Priority Queues
 
@@ -216,7 +216,7 @@ while (!pq.empty()) {
 priority_queue<int, vector<int>, greater<int>> pq;      
 ```
 
----
+
 
 ## 6. Deques and Lists
 
@@ -246,7 +246,7 @@ for (auto it = lst.begin(); it != lst.end(); it++){
 }
 ```
 
----
+
 
 ## 7. Pairs
 
@@ -286,7 +286,7 @@ sort(v.begin(), v.end(), [](const pair<int,int> &left, const pair<int,int> &righ
 });
 ```
 
----
+
 
 ## 8. STL Algorithms
 ```cpp
@@ -301,7 +301,7 @@ auto it = find(v.begin(), v.end(), 5); // returns iterator
 if (it != v.end())
     cout << "Found at index " << it - v.begin();
 ```
----
+
 
 ## 9. Prefix and Suffix Sum
 ```cpp
@@ -317,7 +317,7 @@ for(int i = n - 2; i >= 0; i--){
     sf[i] = sf[i+1] + v[i];
 }
 ```
----
+
 ## 10. Basic Math
 
 ### GCD and LCM
@@ -362,7 +362,6 @@ int binpow(int a, int b){
 }
 ```
 
----
 
 ## 11. Modular Arithmetic
 ```
@@ -386,4 +385,3 @@ int binpow(int a, int b){
     return res;
 }
 ```
----
