@@ -1,17 +1,17 @@
 # C++ STL & Basics 
 
-## Contents
+## Table of Contents
 
-1. [Vectors](#1-vectors)  
+1. [Vectors](#1-vectors) 
 2. [Sets and Multisets](#2-sets-and-multisets)  
 3. [Maps and Unordered Maps](#3-maps-and-unordered-maps)  
 4. [Stacks and Queues](#4-stacks-and-queues)  
 5. [Priority Queues](#5-priority-queues)  
 6. [Deques and Lists](#6-deques-and-lists)  
-7. [Pairs](#7-pairs)  
+7. [Pairs and Tuples](#7-pairs-and-tuples)  
 8. [STL Algorithms](#8-stl-algorithms)  
 9. [Prefix and Suffix Sum](#9-prefix-and-suffix-sum)  
-10. [Basic Math](#10-basic-math);
+10. [Basic Math](#10-basic-math)
 11. [Modular Arithmetic](#11-modular-arithmetic)
 
 ## 1. Vectors
@@ -248,7 +248,7 @@ for (auto it = lst.begin(); it != lst.end(); it++){
 
 
 
-## 7. Pairs
+## 7. Pairs and Tuples
 
 ### Pair
 ```cpp
@@ -271,7 +271,7 @@ vector<pair<int, int>> vp = {{1, 2}, {3, 4}};
 for(int i = 0; i < n; i++){
     cout << data[i].first << " " << data[i].second;
 }
-for(auto it = data.begin(); it != data.end(); ++it) {
+for(auto it = data.begin(); it != data.end(); it++) {
     cout << it->first << " " << it->second;l
 }
 
@@ -286,13 +286,37 @@ sort(v.begin(), v.end(), [](const pair<int,int> &left, const pair<int,int> &righ
 });
 ```
 
+### Tuple
 
+```cpp
+tuple<int, string, char> t = make_tuple(1, "hello", 'a');
+cout << get<0>(t) << " " << get<1>(t) << " " << get<2>(t);
+get<1>(t) = "world";
+
+int x; string s; char c;
+tie(x, s, c) = t;   // Unpacking tuple
+
+
+vector<tuple<int, string, char>> vt;
+vt.push_back({1, "apple", 'a'});
+for (int i = 0; i < vt.size(); i++) {
+    cout << get<0>(vt[i]) << " " << get<1>(vt[i]) << " " << get<2>(vt[i]) << "\n";
+}
+
+for (auto &[id, name, ch] : vt) {
+    cout << id << " " << name << " " << ch << "\n";
+}
+
+sort(vt.begin(), vt.end(), [](const tuple<int, string, char> &a, const tuple<int, string, char> &b) {
+    return get<1>(a) < get<1>(b);
+});
+```
 
 ## 8. STL Algorithms
 ```cpp
 sort(v.begin(), v.end());
 reverse(v.begin(), v.end());
-int mx = *max_element(v.begin(), v.end());
+int mx = *max_element(v.begin(), v.end())   ;
 int mn = *min_element(v.begin(), v.end());
 int sum = accumulate(v.begin(), v.end(), 0);
 int ct = count(v.begin(), v.end(), 3);
