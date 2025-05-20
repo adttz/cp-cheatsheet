@@ -316,7 +316,7 @@ sort(vt.begin(), vt.end(), [](const tuple<int, string, char> &a, const tuple<int
 ```cpp
 sort(v.begin(), v.end());
 reverse(v.begin(), v.end());
-int mx = *max_element(v.begin(), v.end())   ;
+int mx = *max_element(v.begin(), v.end());
 int mn = *min_element(v.begin(), v.end());
 int sum = accumulate(v.begin(), v.end(), 0);
 int ct = count(v.begin(), v.end(), 3);
