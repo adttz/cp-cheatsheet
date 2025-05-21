@@ -35,9 +35,9 @@ mid = left + (right - left + 1)/2   //Right/upper mid
 ### Binary Search with Precision (Floating Point)
 - Use either a fixed number of iterations or difference greater than epsilon
 - Number of iterations required:
-$$
-N \geq \log_2\left(\frac{L}{\varepsilon}\right)
-$$
+<p align = "center">
+<img src = "https://latex.codecogs.com/svg.image?$$N\geq\log_2\left(\frac{L}{\varepsilon}\right)$$">
+</p>
 
 ```cpp
 double left = 0, right = *max_element();
