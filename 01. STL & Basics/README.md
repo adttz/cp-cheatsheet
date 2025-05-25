@@ -24,7 +24,7 @@ vector<vector<int>> v(n, vector<int>(m,0));
 v.push_back(10);               // Add at end
 v.pop_back();                  // Remove last
 
-v.erase(i);                                         // Remove element at index i 
+v.erase(v.begin() + i);                             // Remove element at index i 
 v.erase(unique(v.begin(), v.end()), v.end());       // Set operation
 v.erase(remove(v.begin(), v.end(), x), v.end());    // Remove all instances of x
 
@@ -108,6 +108,7 @@ for (auto it = m.begin(); it != m.end(); it++)
     <details>
         <summary>Custom hash</summary>
     <pre><code lang="c++">
+    //Usage: unordered_map<int, int, custom_hash> safe_map;
     struct custom_hash {
         static uint64_t splitmix64(uint64_t x) {
             x += 0x9e3779b97f4a7c15;
@@ -120,7 +121,6 @@ for (auto it = m.begin(); it != m.end(); it++)
             return splitmix64(x + FIXED_RANDOM);
         }
     };
-    //Usage: unordered_map<int, int, custom_hash> safe_map;
     </code></pre>
     </details>       
 

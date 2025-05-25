@@ -1,5 +1,7 @@
 # Sorting
-## Contents
+
+## Table of Contents
+
 1. [Bubble Sort](#bubble-sort)
 2. [Selection Sort](#selection-sort)
 3. [Insertion Sort](#insertion-sort)
