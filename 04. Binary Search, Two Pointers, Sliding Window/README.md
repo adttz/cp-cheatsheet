@@ -32,10 +32,23 @@ mid = left + (right - left)/2       //Left/lower mid
 mid = left + (right - left + 1)/2   //Right/upper mid
 ```
 
+If question indicates answer could be at mid, do not exclude it by doing right = mid - 1
+```cpp
+while(left < right){
+    if(check(mid)){
+        right = mid;
+    }
+    else{
+        left = mid + 1;
+    }
+}
+return left;
+```
+
 ### Binary Search with Precision (Floating Point)
 - Use either a fixed number of iterations or difference greater than epsilon
 - Number of iterations required:
-N >= log2(L / ε)
+N >= log2(L `/ ε)
 
 ```cpp
 double left = 0, right = *max_element();
