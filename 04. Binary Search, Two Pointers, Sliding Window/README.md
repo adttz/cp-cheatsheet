@@ -5,6 +5,7 @@
     - [Upper bound and Lower bound](#upper-bound-and-lower-bound)
     - [Binary Search on Answer](#binary-search-on-answer)
     - [Binary Search on Two Arrays](#binary-search-on-two-arrays-partitioning)
+    - [Minimize / Maximize Average](#minimize--maximize-average)
 2. [Two Pointer](#two-pointer)
 3. [Sliding Window](#sliding-window)
 
@@ -53,8 +54,8 @@ N >= log2(L `/ ε)
 ```cpp
 double left = 0, right = *max_element();
 for(int i = 0; i < 100; i++){
-    double mid = left + (right - left) / 2;
-    if(check[mid]){
+    double mid = left + (right - left) / 2.0;
+    if(check(mid)){
         ans = mid;
         left/right = mid;
     }
@@ -62,10 +63,12 @@ for(int i = 0; i < 100; i++){
         right/left = mid;
     }
 }
+
+check(left);        // Imp for edgecase
 ```
 ```cpp
 double left = 0, right = 1e9;
-double eps = 1e-7;
+double eps = 1e-6;
 while(right - left > eps){
     double mid = left + (right - left) / 2;
     // Rest of the code
@@ -93,6 +96,8 @@ cout << "upper_bound index " << (up - v.begin()) << endl;   // 6
 ```
 ### Binary Search on Answer
 - For some checker functions, consider having the return statement inside the for loop as well to prevent overflow, or use __int128 for sum
+- Choose right such that any addition/multiplication to it will keep it under 9e18 (long long int limit)
+    - If n = 2e5, right = 1e13 is safe
 ```cpp
 int left = 0, right = 1e9, ans = -1;
 while(left <= right){
@@ -108,7 +113,7 @@ while(left <= right){
 ```
 
 ### Binary Search on Two Arrays (Partitioning)
-- Always binary search smaller array
+- Always binary search on smaller array
 ```cpp
 int left = max(0, k - m), right = min(k, n);
 while(left <= right){
@@ -132,6 +137,15 @@ while(left <= right){
 }
 ```
 
+### Minimize / Maximize Average
+```cpp
+// Sum - k (Average x n) = 0
+// (a1 - k) + (a2 - k) + ... + (an - k) <= 0
+while(right - left > eps){
+    double mid = ...
+    // Use (sum) + eps in check function wherever possible to avoid precision error
+}
+```
 
 # Two Pointer
 
