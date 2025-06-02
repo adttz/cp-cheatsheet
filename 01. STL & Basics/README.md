@@ -344,7 +344,20 @@ for(int i = n - 2; i >= 0; i--){
 
 ## 10. Basic Math
 
+### Ceil and Floor
+
+```cpp
+int ceil_div(int a, int b){
+    return (a + b - 1) / b;     // Not valid for negative numbers
+}
+
+// Valid for both positive and negative numbers
+int x = ceil(a * 1.0 / b);
+int y = floor(a * 1.0 / b);
+```
+
 ### GCD and LCM
+
 ```cpp
 // Euclidian Algorithm
 int gcd(int a, int b){
