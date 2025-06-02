@@ -28,5 +28,14 @@ void precomp(){
 }
 ```
 
+### Fermat's Little Theorem
+- If p is a prime and a is not divisible by p:
+```
+    a^(p - 1) ≡ 1 mod p
+```
+- Reduces large exponents modulo (p - 1):
+```
+    a^k ≡ a^(k % (p - 1)) mod p
+```
 Triangulation
 https://codeforces.com/contest/1942/problem/C1
