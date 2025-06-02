@@ -3,8 +3,8 @@
 ## Table of Contensts
 1. [Basics](#basics)
     - [Operators](#operators)
-    - [Operations on bits](#operations-on-bits)
-    - [Bitwise Equations](#bitwise-equations)
+    - [Operations on Bits](#operations-on-bits)
+    - [Bitwise Operations Properties](#bitwise-operation-properties)
 2. [GCC Built-in Functions](#gcc-built-in-functions-for-bit-manipulation)
 3. [Bit Masking](#bit-masking)
 
@@ -46,8 +46,11 @@ n ^= (1 << i);
 // Turn off rightmost set bit
 n &= (n - 1);
 
-// Isolate rightmost set bit
+// Extract rightmost set bit
 int x = n & (-n); 
+
+// Clear all trailing ones (from LSB)
+n &= (n+1);
 
 // Check if power of 2
 bool isPowerOfTwo(int n) {
@@ -64,7 +67,8 @@ int countSetBits(int n) {
     return cnt;
 }
 ```
-### Bitwise Equations
+
+### Bitwise Operations Properties
 ```cpp
 // Addition using bitwise ops
 a + b = a | b + a & b
@@ -87,7 +91,7 @@ a - b = ((a | b) ^ b) - (b ^ (a & b))
 
 ## GCC Built-in Functions for Bit Manipulation
 ```cpp
-__builtin_popcount(unsigned int x)
+__builtin_popcountll(unsigned int x)
 ```
 - Returns the number of set bits (1s) in x
 - __builtin_popcount(0b0001'0010'1100) == 4
@@ -97,15 +101,17 @@ __builtin_ffs(int x)
 ```
 - Finds index (1-based) of first set bit (from right)
 - __builtin_ffs(0b0001'0010'1100) == 3
+- Usage: Calculate biggest power of 2 that is a divisor of x. Ex. f(12) = 4
+    -  1 << __builtin_ctz(x) 
 
 ```cpp
-__builtin_clz(unsigned int x)
+__builtin_clzll(unsigned int x)
 ```
 - Count of leading zeros (before first 1 from left)
 - __builtin_clz(0b0001'0010'1100) == 23
 
 ```cpp
-__builtin_ctz(unsigned int x)
+__builtin_ctzll(unsigned int x)
 ```
 - Count of trailing zeros (after last 1 from right)
 - __builtin_ctz(0b0001'0010'1100) == 2
@@ -117,4 +123,17 @@ __builtin_parity(unsigned int x)
 - __builtin_parity(0b0001'0010'1100) == 0
 
 
+## Bit Masking
 
+```cpp
+for (int mask = 0; mask < (1 << n); mask++) {
+    int subset = 0;
+    for (int i = 0; i < n; i++) {
+        if (mask & (1 << i)) {
+            // i-th element is included 
+            // Operate on the subset (ex. add v[i])
+        }
+    }
+    // Process subset
+}
+```
