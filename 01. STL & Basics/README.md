@@ -11,8 +11,9 @@
 7. [Pairs and Tuples](#7-pairs-and-tuples)  
 8. [STL Algorithms](#8-stl-algorithms)  
 9. [Prefix and Suffix Sum](#9-prefix-and-suffix-sum)  
-10. [Basic Math](#10-basic-math)
-11. [Modular Arithmetic](#11-modular-arithmetic)
+10. [Difference Array](#10-difference-array-partial-sum)
+11. [Basic Math](#11-basic-math)
+12. [Modular Arithmetic](#12-modular-arithmetic)
 
 ## 1. Vectors
 ```cpp
@@ -340,9 +341,29 @@ sf[n-1] = v[n-1];
 for(int i = n - 2; i >= 0; i--){
     sf[i] = sf[i+1] + v[i];
 }
+
+while(q--){
+    int l, r; cin >> l >> r;c
+    cout << pf[r] - pf[l-1] << '\n';  
+}
 ```
 
-## 10. Basic Math
+## 10. Difference Array (Partial Sum)
+- Range Update in O(1)
+- Used when you needed to add/subtract a value over a range [l, r] multiple times.
+
+```cpp
+vector<int> diff(n+1, 0);   // n+2 for 1-indexing
+
+diff[l] += val;
+diff[r+1] -= val;
+
+for(int i = 1; i <= n; i++){
+    diff[i] += diff[i-1];
+}
+```
+
+## 11. Basic Math
 
 ### Ceil and Floor
 
@@ -400,7 +421,7 @@ int binpow(int a, int b){
 ```
 
 
-## 11. Modular Arithmetic
+## 12. Modular Arithmetic
 ```
 https://codeforces.com/blog/entry/72527
 https://usaco.guide/gold/modular?lang=cpp

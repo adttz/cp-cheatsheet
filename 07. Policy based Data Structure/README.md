@@ -4,7 +4,7 @@
 #include <ext/pb_ds/tree_policy.hpp> 
 using namespace __gnu_pbds;  
 
-#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag, tree_order_statistics_node_update>
 ```
 - find_by_order() : Returns iterator to the k-th largest element
 - order_of_key : Number of items in set that are strictly smaller the our key.
