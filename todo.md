@@ -11,14 +11,3 @@
 
 - https://codeforces.com/blog/entry/83295
 
-# Maths
-
-- Prime factorization
-- Sieve
-- LCM / GCD
-
-# Bit manipulation
-
-- 1ll << i => pow(2,i)
-- bitset<32>(n).count() gives hamming weight
-- __builtin_popcount(n) also

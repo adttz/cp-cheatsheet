@@ -12,7 +12,7 @@
 8. [STL Algorithms](#8-stl-algorithms)  
 9. [Prefix and Suffix Sum](#9-prefix-and-suffix-sum)  
 10. [Difference Array](#10-difference-array-partial-sum)
-11. [Basic Math](#11-basic-math)
+11. [Basic Number Theory](#11-basic-number-theory)
 12. [Modular Arithmetic](#12-modular-arithmetic)
 
 ## 1. Vectors
@@ -43,6 +43,15 @@ reverse(v.begin(), v.end());   // Reverse
 for (int i : v) cout << i << " ";
 for (auto it = v.begin(); it != v.end(); it++){
     cout << *it << " ";
+    }
+
+// For diagnonals ex. N-queens
+for(int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--){
+    if(board[i][j] == 'Q') return false;
+}
+
+for(int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++){
+    if(board[i][j] == 'Q') return false;
 }
 ```
 
@@ -99,6 +108,8 @@ m.clear();     // Clear map
 
 for (auto it = m.begin(); it != m.end(); it++)
     cout << it->first << " " << it->second << "\n";
+
+map<int, map<int,int>> m;   // 2d map, access as m[i][j]
 ```
 
 ### Unordered Map (faster, random order)
@@ -363,7 +374,7 @@ for(int i = 1; i <= n; i++){
 }
 ```
 
-## 11. Basic Math
+## 11. Basic Number Theory
 
 ### Ceil and Floor
 

@@ -1,46 +1,114 @@
-# Recursion
+# Recursion, Backtracking, DnC
 
-# Backtracking 
+## Table Of Contents
+1. [Recursion](#recursion)
+2. [Backtracking](#backtracking)
+3. [Divide & Conquer](#divide-&-conquer)
 
-<details>
-    <summary>Number of solutions to N-Queens</summary>
+## Recursion
 
+#### Basic Structure
 ```cpp
-int n;
-vector<int> queen(n);   // queen[i] = j -> queen in row i placed in column j
-
-bool isvalid(int level, int col){
-    for(int i = 0; i < row; i++){
-        int previous_row = i;
-        int previous_col = queen[i];
-        if(previous_col == col || abs(previous_row - row) == abs(previous_col - col)){
-            return false;
-        }
+int func(int ... n){
+    if(n > target){
+        return;     // Pruning
     }
-    return true;
+    if(n == target){
+        return ans;     // Base case
+    }
+    return func(n - 1) ...      // Recursive call
+}
+```
+
+#### Take v/s don't take
+```cpp
+int rec(int x, int sum){
+    if(x == n){
+        return abs((total_sum - sum) - sum);
+    }
+    return min(rec(x + 1, sum + v[x]), rec(x + 1, sum));
+               // Take                 // Don't take
 }
 
-int dp(int level){
-    if(level == n){
-        return 1;
+int knapsack(int i, int weight, int value){
+    if (i == n) return value; 
+    int res = knapsack(i + 1, weight, value); 
+    if (weight + w[i] <= k) {
+        res = max(res, knapsack(i + 1, weight + w[i], value + v[i])); 
     }
-    int ans = 0;
-    for(int col = 0; col < n; col++){
-        if(isvalid(level, col)){
-            queen[level] = col;
-            ans += dp(level + 1, n);
-            queen[level] = -1;
+    return res;
+}
+```
+
+- Also can be done with bitmasking
+```cpp
+int func(){
+    for(int mask = 0; mask < 1 << n; mask++){
+        int tmp = 0;
+        for(int i = 0; i < n; i++){
+            if((1 << i) & mask){
+                // Take
+            }
+            else{
+                // Don't take;
+            }
         }
+        // Process ans
     }
     return ans;
 }
+```
 
-void solve(){
-    cin >> n;
-    memset(queen, -1, sizeof(queen));
-    cout << dp(0) << '\n';
+## Backtracking
+```cpp
+void backtrack(vector<int> &v, vector<int> &tmp, vector<vector<int>> &ans, int start){
+    if(pruning_case){
+        return;
+    }
+    if(base_case){
+        ans.push_back(tmp);
+        return;
+    }
+    for(int i = start; i < n; i++){
+        if(isValid(v, i)){
+            tmp.push_back(v[i]);        // Explore taking current element
+            backtrack(v, tmp, ans, i + 1);
+            tmp.pop_back();             // Backtrack
+        }
+    }
+}
+
+vector<vector<int>> runner(vector<int> &v){
+    sort(v.begin(), v.end());   // Important for handling duplicates
+    vector<int> tmp;
+    vector<vector<int>> ans;    
+    backtrack(v, tmp, ans, 0);
+    return ans;
 }
 ```
-</details>
 
-# Divide & Conquer
+#### Few variations
+```cpp
+// To skip duplicates
+if(i > start && v[i] == v[i-1]) continue; 
+
+// For generating permutations, use vis array
+if(!vis[i]){
+    tmp.push_back(v[i]);        
+    vis[i] = true;
+    backtrack(v, tmp, ans, i + 1, vis);
+    tmp.pop_back();             
+    vis[i] = false;
+}
+
+// For permutations with duplicates, use cursed bitmasking
+for(int i = 0; i < nums.size(); i++) {
+    if((1 << i) & mask) continue;
+    if(i > 0 && nums[i] == nums[i - 1] && !(mask & (1 << (i - 1)))) continue;
+
+    temp.push_back(nums[i]);
+    rec(nums, temp, ans, mask | (1 << i));
+    temp.pop_back();
+}
+```
+## Divide & Conquer
