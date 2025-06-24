@@ -1,69 +1,132 @@
-# Table of Contents
-**[Dynamic Programming](#dynamic-programming)**
-- [Basic Theory](#basic-theory)
-- [Recursive vs Iterative](#recursive-vs-iterative)
-
-**[Resources](#resources)**
-
 # Dynamic Programming
 
-### Basic Theory:
+## Table of Contents
+1. [Introduction](#introduction)
+2. [2D / Grid DP](#2d--grid-dp)
+3. [Knapsack](#knapsack)
+4. [DP on Subsequences](#dp-on-subsequences)
+    - [Longest Increasing Subsequence](#longest-increasing-subsequence)
+    - [Longest Common Subsequence](#longest-common-subsequence)
+5. [String DP](#string-dp)
+6. [Bitmask DP](#bitmask-dp)
+7. [Digit DP](#digit-dp)
+.
 
-- States : Represents the value(s) that the discarded information was compressed to, and also represents the subproblems we solve to build up to the main problem.
-    - In Knapsack problem, our state can be defined by two parameters index and weight i.e dp[index][weight].
-<br>
-
-- Transitions : Represents the way that states interact with each other
-    - In the grid example, the iterative method’s transitions are pushing the answers to the downward and rightward cells: dp(r + 1, c) += dp(r, c); dp(r, c + 1) += dp(r, c)
-    - The recursive transitions are given by the formula: dp(r, c) = dp(r - 1, c) + dp(r, c - 1)
-<br>
-
-- Base cases : Easiest states which we already know the answer to. dp[0] = 0, dp[0][0] = 1, etc.
-<br>
-
-- Push vs Pull DP : 
-    - Pull DP "pulls" answer from previous DP values (recursive solution) ex. dp(r,c) = dp(r-1,c) + dp(r,c-1)
-    - Recursive can only be pull dp.
-    - Push DP "pushes" answer to future DP values (iterative solution) dp(r+1,c) += dp(r,c); dp(r,c+1) += dp(r,c)
+## 1. Introduction
 
 ### Recursive vs Iterative
-- Top-down (memoization)
-    -  Start from highest level of problem
-    - Check if we have solved current sub-problem
-    - Computes only those solutions which are needed
-- Bottom-Up (Tabulation)
-    - Start at the bottom and work our way to the top 
-    - Calculates all solutions in the range
 
-Nth fibonacci number
-- Recursive
-```c++
-int fibo(int n){
-    if(n <= 1){
-        return n;
+#### Top-Down (Memoization)
+- Check if we have solved current sub-problem
+- Start from highest level of problem
+- Computers only those solutions which are needed
+
+```cpp
+int func(int n) {
+    if(base_case){
+        return val;
     }
-    return fibo(n-1) + fibo(n-2);
+    if(dp[n] != -1){
+        return dp[n];   // Already calculated value
+    }
+    int include = func(...);
+    int exclude = func(...);
+    return dp[n] = f(include, exclude);
 }
 ```
-- Iterative
-```c++
-int fibo(int n){
-    vector<int> dp(n+1,0);
-    dp[0] = 0, dp[1] = 1;
-    for(int i = 2; i <= n; i++){
-        dp[i] = dp[i-1] + dp[i-2];
+
+#### Bottom-Up (Tabulation)
+- Start at the bottom and work our way to the top 
+- Calculates all solutions in the range
+
+```cpp
+int func(int n) {
+    vector<int> dp(n+1);
+    if(base_case){
+        dp[val] = some_value;
+    }
+    for(int i = 1; i <= n; i++){
+        dp[i] = f(dp[i-x], dp[i-y]);
     }
     return dp[n];
 }
 ```
 
-## Resources
-[AtCoder DP Contest](https://atcoder.jp/contests/dp)
+## 2. 2D / Grid DP
 
-[DP tutorial and problem list](https://codeforces.com/blog/entry/67679)
+## 3. Knapsack
 
-[Non-trivial DP tricks](https://codeforces.com/blog/entry/47764)
+### 0/1 Knapsack
 
-[Bigass cf blog](https://codeforces.com/blog/entry/43256)
+```cpp
+vector<<vector> dp(n+1, vector<int>(W+1));
+for(int i = 1; i <= n; i++){
+    for(int j = 0; j <= W; j++){
+        dp[i][j] = dp[i-1][j];
 
-[CSES DP tutorials](https://codeforces.com/blog/entry/70018)
+        if(j >= wt[i-1]){
+            dp[i][j] = max(dp[i][j], dp[i-1][j - wt[i-1]] + val[i-1]);
+        }
+    }
+}
+return dp[n][W];
+
+// Space-Optimized
+vector<int> dp(W+1, 0);
+for(int i = 1; i <= n; i++){
+    for(int j = W; j >= wt[i-1]; j--){
+        dp[j] = max(dp[j], dp[j - wt[i-1]] + val[i-1]);
+    }
+}
+return dp[W];
+```
+
+### Subset Sum
+
+```cpp
+vector<vector<bool>> dp(n+1, vector<bool>(target+1, false));
+dp[0][0] = true;
+for(int i = 1; i <= n; i++){
+    for(int j = 0; j <= target; j++){
+        dp[i][j] = dp[i-1][j];  
+        if(j >= arr[i-1] && dp[i-1][j - arr[i-1]]){
+            dp[i][j] = true;
+        }
+    }
+}
+return dp[n][target];
+
+// Space-Optimized
+vector<bool> dp(target+1, false);
+dp[0] = true;
+for(int i = 0; i < n; i++){
+    for(int j = target; j >= arr[i]; j--){
+        dp[j] |= dp[j - arr[i]];
+    }
+}
+return dp[target];
+```
+
+### Unbounded Knapsack
+```cpp
+vector<vector<int>> dp(n+1, vector<int>(W+1, 0));
+
+for(int i = 1; i <= n; i++){
+    for(int j = 0; j <= W; j++){
+        dp[i][j] = dp[i-1][j];  // not take
+        if(j >= wt[i-1]){
+            dp[i][j] = max(dp[i][j], dp[i][j - wt[i-1]] + val[i-1]);  // take again
+        }
+    }
+}
+return dp[n][W];
+
+// Space-Optimized
+vector<int> dp(W+1, 0);
+for(int i = 1; i <= n; i++){
+    for(int j = wt[i-1]; j <= W; j++){
+        dp[j] = max(dp[j], dp[j - wt[i-1]] + val[i-1]);
+    }
+}
+return dp[W];
+```
