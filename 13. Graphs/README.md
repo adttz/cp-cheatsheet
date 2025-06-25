@@ -5,9 +5,9 @@
 2. [Basic Algorithms](#basic-algorithms)
     - [Topological Sorting](#topological-sorting)
     - [Cycle Detection](#cycle-detection)
-    - [Bipartite Graph](#bitpartite-graph)
+    - [Bipartite Graph](#bipartite-graph)
 3. [Shortest Paths](#shortest-paths)
-    - [Dijkstra's Algorithn](#dijkstra's-aglorithm)
+    - [Dijkstra's Algorithn](#dijkstra's-algorithm)
     - [Floyd Warshall](#floyd-warshall)
     - [Bellman Ford](#bellman-ford)
 
@@ -17,10 +17,9 @@
 ### DFS (Depth First Search)
 ```c++
 void dfs(int u){
-    visited[u] = true;
+    vis[u] = true;
     for(auto v : adj[u]){
-        if(!visited[v]){
-            
+        if(!vis[v]){
             dfs(v);
         }
     }
@@ -49,32 +48,36 @@ void bfs(int startNode, vector<vector<int>>& adj){
     }
 }
 ```
-### Applications
 
+### Applications
 #### For 2D Grids
 ```cpp
-vector<int> dx = {1, 1, 1, 0, 0, -1, -1, -1};
-vector<int> dy = {-1, 0, 1, -1. 1, -1, 0, 1};
+vector<int> dx = {1, -1, 0, 0};
+vector<int> dy = {0, 0, 1, -1};
+
+vector<int> dx_diag = {1, 1, 1, 0, 0, -1, -1, -1};
+vector<int> dy_diag = {-1, 0, 1, -1, 1, -1, 0, 1};
 
 bool isValid(int x, int y, int n, int m){
     return (x >= 0 && x < n && y >= 0 && y < m);
 }
 
 // Inside traversal function
-for(int i = 0; i < 8; i++){
+for(int i = 0; i < 4; i++){
     int newX = x + dx[i];
     int newY = y + dy[i];
-
     if(isValid(newX, newY, n, m) && !vis[newX][newY]){
         // process node
     }
 }
 ```
-#### Finding path
+#### Tracing path
 ```cpp
 p[start_node] = -1;
 
-p[neighbour] = p[node];     // Inside traversal function
+for(auto neighbour : adj[node]){
+    p[neighbour] = node;     // Inside traversal function
+}
 
 if(!vis[u]){
     cout << "No Path";
@@ -124,7 +127,7 @@ vector<int> topologicalSort(int n, vector<vector<int> >& adj){
         }
     }
     queue<int> q;
-    for (int i = 0; i < V; i++) {
+    for (int i = 0; i < n; i++) {
         if (indeg[i] == 0) {
             q.push(i);
         }
@@ -153,3 +156,119 @@ vector<int> topologicalSort(int n, vector<vector<int> >& adj){
 ```
 
 ### Cycle Detection
+#### Directed Graph
+- Using DFS
+```cpp
+bool dfs(int u, vector<int> adj[], vector<bool> &vis, vector<bool> &rec){
+    vis[u] = true;
+    rec[u] = true;
+    
+    for(auto v : adj[u]){
+        if(!vis[v]){
+            if(dfs(v, adj, vis, rec)) return true;
+        }
+        else if (rec[v]){
+            return true;
+        }
+    }
+    rec[u] = false;
+    return false;
+}
+```
+
+- Using Kahn's Algorithm
+```cpp
+bool hasCycle(int n, vector<vector<int>>& adj) {
+    vector<int> indeg(n);
+    for (int i = 0; i < n; i++)
+        for (auto u : adj[i])
+            indeg[u]++;
+
+    queue<int> q;
+    for (int i = 0; i < n; i++)
+        if (indeg[i] == 0) q.push(i);
+
+    int count = 0;
+    while (!q.empty()) {
+        int node = q.front(); q.pop();
+        count++;
+        for (auto v : adj[node]) {
+            indeg[v]--;
+            if (indeg[v] == 0)
+                q.push(v);
+        }
+    }
+    return count != n; // True if cycle exists
+}
+```
+
+#### Undirected Graph
+```cpp
+bool dfs(int u, int parent, vector<vector<int>>& adj, vector<bool>& vis) {
+    vis[u] = true;
+    for (auto v : adj[u]) {
+        if (!vis[v]) {
+            if (dfs(v, u, adj, vis)) return true;
+        } 
+        else if (v != parent) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Similar logic for BFS, perform traversal and check if neighbour is visited and not parent
+```
+
+### Bipartite Graph
+- Using BFS
+```cpp
+bool isBipartite(vector<vector<int>>& graph) {
+    int n = graph.size();
+    vector<int> colour(n, -1);
+    for(int i = 0; i < n; i++){
+        if(colour[i] != -1) continue;
+        queue<int> q;
+        q.push(i);
+        colour[i] = 1;
+        while(!q.empty()){
+            int v = q.front();
+            q.pop();
+            for(auto u : graph[v]){
+                if(colour[u] == -1){
+                    colour[u] = 1 ^ colour[v];
+                    q.push(u);
+                }
+                else if (colour[u] == colour[v]){
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+```
+- Using DFS
+```cpp
+bool dfs(int v, int c, vector<vector<int>> &graph, vector<int> &colour) {
+    colour[v] = c;
+    for (auto u : graph[v]) {
+        if (colour[u] == -1) {
+            if (!dfs(u, c ^ 1, graph, colour)) return false;
+        } else if (colour[u] == c) {
+            return false;
+        }
+    }
+    return true;
+}
+bool isBipartite(vector<vector<int>> &graph) {
+    int n = graph.size();
+    vector<int> colour(n, -1);
+    for (int i = 0; i < n; i++) {
+        if (colour[i] == -1) {
+            if (!dfs(i, 0, graph, colour)) return false;
+        }
+    }
+    return true;
+}
+```
