@@ -1,85 +1,33 @@
-# Table of Contents
-**[Basics of Graphs](#basics-of-graphs)**
-- [Graph terminology](#graph-terminology)
-- [Graph representations](#graph-representations)
+# Graphs
 
-**[Graph traversal](#graph-traversal)**
-- [Depth-first search](#dfs-depth-first-search)
-- [Breadth-first search](#bfs-breadth-first-search)
+## Table of Contents
+1. [Graph Traversal](#graph-traversal)
+2. [Basic Algorithms](#basic-algorithms)
+    - [Topological Sorting](#topological-sorting)
+    - [Cycle Detection](#cycle-detection)
+    - [Bipartite Graph](#bitpartite-graph)
+3. [Shortest Paths](#shortest-paths)
+    - [Dijkstra's Algorithn](#dijkstra's-aglorithm)
+    - [Floyd Warshall](#floyd-warshall)
+    - [Bellman Ford](#bellman-ford)
 
 
-# Basics of Graphs
 
-## Graph terminology
-- A graph consists of nodes and edges
-- A path leads from node a to node b through edges of the graph. The length of a path is the number of edges in it.
-- A path is simple if each node appears at most once in the path.
-    - No edge starts and ends at the same node
-    - No multiple edges between nodes
-- A path is a cycle if the first and last node is the same. 
-
-#### Connectivity 
-- The connected parts of a graph are called its components
-- A tree is a connected graph that consists of n nodes and n−1 edges. There is a unique path between any two nodes of a tree.
-    - No cycles => Tree
-
-#### Edges
-- A graph is directed if the edges can be traversed in one direction only.
-- In a weighted graph, each edge is assigned a weight. The weights are often interpreted as edge lengths.
-- A graph is simple if no edge starts and ends at the same node, and there are no multiple edges between two nodes.
-
-#### Neighbours and degrees
-- Two nodes are neighbors or adjacent if there is an edge between them. The degree of a node is the number of its neighbors.
-- The sum of degrees in a graph is always 2m, where m is the number of edges, because each edge increases the degree of exactly two nodes by one. For this reason, the sum of degrees is always even.
-- A graph is regular if the degree of every node is a constant d. A graph is complete if the degree of every node is n−1.
-- In degree : number of edges coming into a node, vice versa for out degree
-
-#### Colouring
-- In a coloring of a graph, each node is assigned a color so that no adjacent nodes have the same color.
-- A graph is <strong>bipartite</strong> if it is possible to color it using two colors. 
-    - A graph is bipartite exactly when it does not contain a cycle with an odd number of edges.
-
-### Graph representations
-#### Adjacency matrix
-
+## Graph Traversal
+### DFS (Depth First Search)
 ```c++
-int adj[MAXN][MAXN];
-int n, m; cin >> n >> m;    // Number of nodes and edges
-for(int i = 0; i < m; i++){
-    int u, v; cin >> u >> v;
-    u--, v--;   // 0 indexing
-    adj[u][v] = 1;  // Set w if graph is weighted
-    adj[v][u] = 1;  // Omit this line if the graph is directed
-}
-```
-#### Adjacency list
-```c++
-int n, m; cin >> n >> m;
-vector<int> adj[N];     // vector<pair<int,int>> adj[N] for weighted graph
-for(int i = 0; i < m; i++){
-    int u, v; cin >> u >> v;
-    u--, v--;
-    adj[u].push_back(v);    // adj[a].push_back({b, w}) for weighted graph
-    adj[v].push_back(u);    // Omit this line if the graph is directed
-}
-```
-
-
-# Graph traversal
-## DFS (Depth First Search)
-
-```c++
-void dfs(int v){
-    visited[v] = true;
-    for(auto u : adj[v]){
-        if(!visited[u])
-            dfs(u);
+void dfs(int u){
+    visited[u] = true;
+    for(auto v : adj[u]){
+        if(!visited[v]){
+            
+            dfs(v);
+        }
     }
 }
 ```
 
-
-## BFS (Breadth First Search)
+### BFS (Breadth First Search)
 
 ```c++
 void bfs(int startNode, vector<vector<int>>& adj){
@@ -101,3 +49,107 @@ void bfs(int startNode, vector<vector<int>>& adj){
     }
 }
 ```
+### Applications
+
+#### For 2D Grids
+```cpp
+vector<int> dx = {1, 1, 1, 0, 0, -1, -1, -1};
+vector<int> dy = {-1, 0, 1, -1. 1, -1, 0, 1};
+
+bool isValid(int x, int y, int n, int m){
+    return (x >= 0 && x < n && y >= 0 && y < m);
+}
+
+// Inside traversal function
+for(int i = 0; i < 8; i++){
+    int newX = x + dx[i];
+    int newY = y + dy[i];
+
+    if(isValid(newX, newY, n, m) && !vis[newX][newY]){
+        // process node
+    }
+}
+```
+#### Finding path
+```cpp
+p[start_node] = -1;
+
+p[neighbour] = p[node];     // Inside traversal function
+
+if(!vis[u]){
+    cout << "No Path";
+    return;
+}
+vector<int> path;
+for(int v = u; v != -1; v = p[v]){
+    path.push_back(v);
+}
+reverse(path.begin(), path.end());
+```
+
+## Basic Algorithms
+### Topological Sorting
+- Linear ordering of vertices such that for every directed edge u-v, vertex u comes before v in the ordering.
+    - Input: V = 6, edges = [[2, 3], [3, 1], [4, 0], [4, 1], [5, 0], [5, 2]]
+    - Output: 5 4 2 3 1 0
+
+#### DFS Implementation
+```cpp
+void toposort(int u, vector<vector<int>> &adj, vector<bool> &vis, vector<int> &ans){
+    vis[u] = true;
+
+    for(auto v : adj[u]){
+        if(!vis[v]){
+            toposort(v, adj, vis, ans);
+        }
+    }
+    ans.push_back(u);
+}
+
+for(int i = 0; i < n; i++){
+    if(!vis[i]){
+        toposort(i, adj, vis, ans);
+    }
+}
+reverse(ans.begin(), ans.end());
+```
+
+#### Kahn's Algorithm
+```cpp
+vector<int> topologicalSort(int n, vector<vector<int> >& adj){
+    vector<int> indeg(n);
+    for (int i = 0; i < n; i++) {
+        for (auto u : adj[i]) {
+            indeg[u]++;
+        }
+    }
+    queue<int> q;
+    for (int i = 0; i < V; i++) {
+        if (indeg[i] == 0) {
+            q.push(i);
+        }
+    }
+    vector<int> result;
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+        result.push_back(node);
+        
+        for (auto v : adj[node]) {
+            indeg[v]--;
+
+            if (indeg[v] == 0)
+                q.push(v);
+        }
+    }
+
+    if (result.size() != n) {
+        cout << "Graph contains cycle";
+        return {};
+    }
+
+    return result;
+}
+```
+
+### Cycle Detection
