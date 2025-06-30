@@ -44,6 +44,7 @@
     - Equivalent to no odd length cycles
 
 
+
 ## Graph representation
 ### Adjacency matrix
 
@@ -60,7 +61,7 @@ for(int i = 0; i < m; i++){
 ### Adjacency list
 ```c++
 int n, m; cin >> n >> m;
-vector<vector<int>> adj     // vector<vector<pair<int,int>>> adj for weighted graph
+vector<vector<int>> adj(n); // vector<vector<pair<int,int>>> adj(n) for weighted graph
 for(int i = 0; i < m; i++){
     int u, v; cin >> u >> v;
     u--, v--;

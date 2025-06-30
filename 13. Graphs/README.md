@@ -1,19 +1,19 @@
 # Graphs
 
 ## Table of Contents
-1. [Graph Traversal](#graph-traversal)
-2. [Basic Algorithms](#basic-algorithms)
+1. [Graph Traversal](#1-graph-traversal)
+2. [Basic Algorithms](#2-basic-algorithms)
     - [Topological Sorting](#topological-sorting)
     - [Cycle Detection](#cycle-detection)
     - [Bipartite Graph](#bipartite-graph)
-3. [Shortest Paths](#shortest-paths)
-    - [Dijkstra's Algorithn](#dijkstra's-algorithm)
+3. [Shortest Paths](#3-shortest-paths)
+    - [Dijkstra's Algorithm](#dijktras-algorithm)
     - [Floyd Warshall](#floyd-warshall)
     - [Bellman Ford](#bellman-ford)
 
 
 
-## Graph Traversal
+## 1. Graph Traversal
 ### DFS (Depth First Search)
 ```c++
 void dfs(int u){
@@ -83,6 +83,7 @@ if(!vis[u]){
     cout << "No Path";
     return;
 }
+
 vector<int> path;
 for(int v = u; v != -1; v = p[v]){
     path.push_back(v);
@@ -90,7 +91,7 @@ for(int v = u; v != -1; v = p[v]){
 reverse(path.begin(), path.end());
 ```
 
-## Basic Algorithms
+## 2. Basic Algorithms
 ### Topological Sorting
 - Linear ordering of vertices such that for every directed edge u-v, vertex u comes before v in the ordering.
     - Input: V = 6, edges = [[2, 3], [3, 1], [4, 0], [4, 1], [5, 0], [5, 2]]
@@ -156,7 +157,8 @@ vector<int> topologicalSort(int n, vector<vector<int> >& adj){
 ```
 
 ### Cycle Detection
-#### Directed Graph
+#### <ins> Directed Graph </ins>
+
 - Using DFS
 ```cpp
 bool dfs(int u, vector<int> adj[], vector<bool> &vis, vector<bool> &rec){
@@ -202,7 +204,7 @@ bool hasCycle(int n, vector<vector<int>>& adj) {
 }
 ```
 
-#### Undirected Graph
+#### <ins> Undirected Graph </ins>
 ```cpp
 bool dfs(int u, int parent, vector<vector<int>>& adj, vector<bool>& vis) {
     vis[u] = true;
@@ -217,11 +219,32 @@ bool dfs(int u, int parent, vector<vector<int>>& adj, vector<bool>& vis) {
     return false;
 }
 
-// Similar logic for BFS, perform traversal and check if neighbour is visited and not parent
+bool bfs(int start, vector<vector<int>>& adj, vector<bool>& vis) {
+    queue<pair<int, int>> q;
+    q.push({start, -1});
+    vis[start] = true;
+
+    while (!q.empty()) {
+        auto [node, parent] = q.front();
+        q.pop();
+
+        for (int neighbor : adj[node]) {
+            if (!vis[neighbor]) {
+                vis[neighbor] = true;
+                q.push({neighbor, node});
+            } 
+            else if (neighbor != parent) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 ```
 
 ### Bipartite Graph
-- Using BFS
+- Number of edges in bipartite graph = colour[0] * colour[1];
+#### Using BFS
 ```cpp
 bool isBipartite(vector<vector<int>>& graph) {
     int n = graph.size();
@@ -248,14 +271,15 @@ bool isBipartite(vector<vector<int>>& graph) {
     return true;
 }
 ```
-- Using DFS
+#### Using DFS
 ```cpp
 bool dfs(int v, int c, vector<vector<int>> &graph, vector<int> &colour) {
     colour[v] = c;
     for (auto u : graph[v]) {
         if (colour[u] == -1) {
             if (!dfs(u, c ^ 1, graph, colour)) return false;
-        } else if (colour[u] == c) {
+        } 
+        else if (colour[u] == c) {
             return false;
         }
     }
@@ -270,5 +294,61 @@ bool isBipartite(vector<vector<int>> &graph) {
         }
     }
     return true;
+}
+```
+
+## 3. Shortest Paths
+
+
+### Dijktra's Algorithm
+```cpp
+vector<int> dijkstra(int src, int n, vector<vector<pair<int, int>>> &adj) {
+    vector<int> dist(n, INT_MAX);
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+
+    dist[src] = 0;
+    pq.push({0, src}); // {dist, node}
+
+    while (!pq.empty()) {
+        auto [d, u] = pq.top(); pq.pop();
+
+        if (d > dist[u]) continue; // Skip if not optimal
+
+        for (auto [v, w] : adj[u]) {
+            if (dist[v] > dist[u] + w) {
+                dist[v] = dist[u] + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    return dist;
+}
+```
+
+
+### 0/1 BFS 
+- When edge weights are 0 or 1
+- Speeds up Dijkstra's from O((V + E) * log V) to O(V + E)
+```cpp
+vector<int> zeroOneBFS(int src, int n, vector<vector<pair<int, int>>> &adj) {
+    vector<int> dist(n, INT_MAX);
+    deque<int> dq;
+
+    dist[src] = 0;
+    dq.push_front(src);
+
+    while (!dq.empty()) {
+        int u = dq.front();
+        dq.pop_front();
+
+        for (auto [v, w] : adj[u]) {
+            if (dist[v] > dist[u] + w) {
+                dist[v] = dist[u] + w;
+                if (w == 0) dq.push_front(v);
+                else dq.push_back(v);
+            }
+        }
+    }
+    return dist;
 }
 ```
