@@ -13,7 +13,7 @@
 hash(s) = s[0] + s[1] * p + s[2] * p^2 + ... + s[n-1] * p^(n-1) mod m
 ```
 #### Hashing a string
-```
+```cpp
 int compute_hash(string const& s) {
     const int p = 31;
     const int m = 1e9 + 9;
