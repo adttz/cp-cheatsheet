@@ -10,7 +10,6 @@
 5. [String DP](#string-dp)
 6. [Bitmask DP](#bitmask-dp)
 7. [Digit DP](#digit-dp)
-.
 
 ## 1. Introduction
 
@@ -201,23 +200,24 @@ vector<int> getLIS(vector<int>& v) {
 ```
 
 ### Longest Common Subsequence
+
 ```cpp
 string findLCS(int n, int m, string &s1, string &s2){
-	vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
-	for(int i = 1; i <= n; i++){
-		for(int j = 1; j <= m; j++){
-			if(s1[i-1] == s2[j-1]){
-				dp[i][j] = 1 + dp[i-1][j-1];
-			}
-			else{
-				dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
-			}
-		}
-	}	
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            if(s1[i-1] == s2[j-1]){
+                dp[i][j] = 1 + dp[i-1][j-1];
+            }
+            else{
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
+    }	
     // dp[n][m] -> Length of LCS
 
-	string s;
-	while(n > 0 && m > 0){
+    string s;
+    while(n > 0 && m > 0){
         if(s1[n-1] == s2[m-1]){
             s += s1[n-1];
             n--; m--;
