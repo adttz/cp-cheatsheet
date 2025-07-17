@@ -14,7 +14,7 @@
 ```c++
 int left = 0, right = n-1;
 while(l <= r){
-    int mid = left + (right -left)/2;
+    int mid = left + (right - left)/2;
     if(v[mid] == target){   
         return mid;
     }
