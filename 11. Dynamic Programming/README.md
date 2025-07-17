@@ -130,7 +130,8 @@ return dp[W];
 
 ## 4. DP on Subsequences
 
-### Longest Increasing Subsequence
+### <ins> Longest Increasing Subsequence </ins>
+
 - In O(n^2)
 ```cpp
 vector<int> lis(vector<int> const& v) {
@@ -196,11 +197,10 @@ vector<int> getLIS(vector<int>& v) {
     reverse(res.begin(), res.end());
     return res;
 }
-
 ```
 
-### Longest Common Subsequence
-
+### <ins>Longest Common Subsequence</ins>
+- dp[i][j] = The length of the longest common subsequence between the prefixes A[0..i-1] and B[0..j-1].
 ```cpp
 string findLCS(int n, int m, string &s1, string &s2){
     vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
@@ -228,6 +228,23 @@ string findLCS(int n, int m, string &s1, string &s2){
 
     reverse(s.begin(), s.end());
     return s;
+}
+
+// Space-Optimized, however can't find subsequence
+int lcs(string &s1, string &s2) {
+    int n = s1.length(), m = s2.length();
+    vector<int> prev(m + 1, 0), curr(m + 1, 0);
+
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= m; j++) {
+            if(s1[i - 1] == s2[j - 1])
+                curr[j] = 1 + prev[j - 1];
+            else
+                curr[j] = max(prev[j], curr[j - 1]);
+        }
+        swap(prev, curr);
+    }
+    return prev[m];
 }
 ```
 
@@ -260,3 +277,47 @@ string shortestCommonSupersequence(string &s1, string &s2) {
     return res;
 }
 ```
+
+## 5. String DP
+
+### Edit Distance
+```cpp
+// Memoization   
+int rec(vector<vector<int>> &dp, string &s1, string &s2, int n, int m){
+    if(n == 0) return m;
+    if(m == 0) return n;
+    if(dp[n][m] != -1) return dp[n][m];
+
+    if(s1[n - 1] == s2[m - 1]){
+        return dp[n][m] = rec(dp, s1, s2, n - 1, m - 1);
+    }
+    return dp[n][m] = 1 + min({rec(dp, s1, s2, n, m - 1), rec(dp, s1, s2, n - 1, m), 
+                                                    rec(dp, s1, s2, n - 1, m - 1)});
+}
+
+int minDistance(string word1, string word2) {
+    int n = word1.length(), m = word2.length();
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, -1));
+    return rec(dp, word1, word2, n, m);
+}
+```
+
+```cpp
+// Tabulation
+int minDistance(string word1, string word2) {
+    int n = word1.size(), m = word2.size();
+    vector<vector<int>> dp(n+1, vector<int>(m+1));
+    for(int i = 0; i <= n; i++) dp[i][0] = i;
+    for(int j = 0; j <= m; j++) dp[0][j] = j;
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            if(word1[i-1] == word2[j-1])
+                dp[i][j] = dp[i-1][j-1];
+            else
+                dp[i][j] = 1 + min({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]});
+        }
+    }
+    return dp[n][m];
+}
+```
+
