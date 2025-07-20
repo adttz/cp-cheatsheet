@@ -11,3 +11,10 @@
 
 - https://codeforces.com/blog/entry/83295
 
+
+
+# Graphs
+- Graph colouring
+- Handshaking lemma
+- scc
+- path with min effort logic in dijkstra
