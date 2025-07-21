@@ -7,10 +7,14 @@
     - [Cycle Detection](#cycle-detection)
     - [Bipartite Graph](#bipartite-graph)
 3. [Shortest Paths](#3-shortest-paths)
-    - [Dijkstra's Algorithm](#dijktras-algorithm)
-    - [Floyd Warshall](#floyd-warshall)
-    - [Bellman Ford](#bellman-ford)
-
+    - [Dijkstra's](#dijkstras-algorithm)
+    - [0/1 BFS](#01-bfs)
+    - [Floyd-Warshall](#floyd-warshall-algorithm)
+    - [Bellman-Ford](#bellman-ford-algorithm)
+4. [Minimum Spanning Tree](#4-minimum-spanning-tree)
+    - [Prim's Algorithm](#prims-algorithm)
+    - [DSU](#dsu)
+    - [Kruskal's Algorithm](#kruskals-algorithm)
 
 
 ## 1. Graph Traversal
@@ -299,8 +303,9 @@ bool isBipartite(vector<vector<int>> &graph) {
 
 ## 3. Shortest Paths
 
-
-### Dijktra's Algorithm
+### Dijkstra's Algorithm
+- Traditional shortest path algorithm for graph with positive edges
+- O((V + E) * log V) Time
 ```cpp
 vector<int> dijkstra(int src, int n, vector<vector<pair<int, int>>> &adj) {
     vector<int> dist(n, INT_MAX);
@@ -327,7 +332,7 @@ vector<int> dijkstra(int src, int n, vector<vector<pair<int, int>>> &adj) {
 
 
 ### 0/1 BFS 
-- When edge weights are 0 or 1
+- When edge weights are 0 or 1 only
 - Speeds up Dijkstra's from O((V + E) * log V) to O(V + E)
 ```cpp
 vector<int> zeroOneBFS(int src, int n, vector<vector<pair<int, int>>> &adj) {
@@ -350,5 +355,129 @@ vector<int> zeroOneBFS(int src, int n, vector<vector<pair<int, int>>> &adj) {
         }
     }
     return dist;
+}
+```
+
+### Floyd-Warshall Algorithm
+- Shortest path between all nodes
+- O(V³) Time
+```cpp
+const int INF = 1e9;
+vector<vector<int>> floydWarshall(int n, vector<vector<pair<int, int>>> &adj) {
+    vector<vector<int>> dist(n, vector<int>(n, INF));
+
+    for (int u = 0; u < n; u++) {
+        dist[i][i] = 0;
+        for (auto [v, w] : adj[u]) {
+            dist[u][v] = w;     // directed graph; for undirected: dist[v][u] = w too
+        }
+    }
+
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[i][k] < INF && dist[k][j] < INF){
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+                }
+            }
+        }
+    }
+    // dist[i][i] < 0 => Negative cycle present
+    return dist;    // dist[i][j] = Min dist from i to j
+}
+```
+
+
+### Bellman-Ford Algorithm
+- Single shortest path finding algo for graphs including negative weights
+- O(V * E) Time
+```cpp
+const int INF = 1e9;
+vector<int> bellmanFord(int n, int src, vector<vector<pair<int, int>>>& adj) {
+    vector<int> dist(n, INF);
+    dist[src] = 0;
+
+    for (int i = 0; i < n - 1; i++){   // Relax edges (n - 1) times
+        for (int u = 0; u < n; u++){
+            if (dist[u] == INF) continue;
+
+            for (auto [v, w] : adj[u]) {
+                if (dist[v] > dist[u] + w) {
+                    dist[v] = dist[u] + w;
+                }
+            }
+        }
+    }
+
+    // Detecting negative cycle
+    for (int u = 0; u < n; ++u) {
+        if (dist[u] == INF) continue;
+        for (auto [v, w] : adj[u]) {
+            if (dist[v] > dist[u] + w) {
+                cout << "Negative weight cycle detected" << '\n';
+                break;
+            }
+        }
+    }
+
+    return dist;
+}
+```
+
+## 4. Minimum Spanning Tree
+
+### Prim's Algorithm
+- Start from any node and pick minimum weight edge to unvisited node using min-heap
+- O(E log V) Time
+    - Works better than Kruskal's for dense graphs (E ≈ V²)
+```cpp
+int prims(int n, vector<vector<pair<int,int>>> &adj){
+    vector<bool> vis(n, false);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
+    pq.push({0, 0}); // (weight, node)
+
+    int mst_cost = 0;
+    while(!pq.empty()){
+        auto [wt, u] = pq.top(); pq.pop();
+        if(vis[u]) continue;
+        vis[u] = true;
+
+        mst_cost += wt;
+        for(auto &[v_wt, v] : adj[u]){
+            if(!vis[v]){
+                pq.push({v_wt, v});
+            }
+        }
+    }
+    return mst_cost;
+}
+```
+
+### DSU
+// Add hyperlink here
+
+### Kruskal's Algorithm
+- Sort edges on increasing weight, add corresponding vertices to union if not in union already
+- O(E log E) Time
+    - Better for sparse graphs
+```cpp
+// DSU Class
+
+int kruskals(int n, int m){
+    DSU dsu(n);
+    vector<tuple<int,int,int>> edges;
+    for(int i = 0; i < m; i++){
+        int u, v, w; cin >> u >> v >> w;
+        edges.push_back({w, u, v});
+    }
+    sort(edges.begin(), edges.end());
+
+    int weight = 0;
+    for(auto &[w, u, v] : edges){
+        if(dsu.find(u) == dsu.find(v)) continue;
+        weight += w;
+        dsu.merge(u, v);
+    }
+    return weight;
 }
 ```
