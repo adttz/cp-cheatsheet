@@ -8,11 +8,11 @@
 ```cpp
 class DSU{
     private:
-        vector<int> par, rank, sz;
+        vector<int> par, rank, size;
     public:
         DSU(int n){
             rank.resize(n + 1, 0);
-            sz.resize(n + 1, 1);
+            size.resize(n + 1, 1);
             par.resize(n + 1);
             for(int i = 1; i <= n; i++){
                 par[i] = i;
@@ -26,8 +26,8 @@ class DSU{
             return par[u] = find(par[u]);   // Path compression
         }
 
-        int size(int u){
-            return sz[find[u]];
+        int get_size(int u){
+            return size[find(u)];
         }
 
         void union_by_size(int u, int v){
@@ -46,14 +46,11 @@ class DSU{
             int a = find(u);
             int b = find(v);
             if(a != b){
-                if (rank[a] < rank[b]) {
-                  par[a] = b;
-                } 
-                else if (rank[a] > rank[b]) {
-                    par[b] = a;
+                if(rank[a] < rank[b]){
+                    swap(a, b);
                 }
-                else {
-                    par[b] = a;
+                par[b] = a;
+                if(rank[a] == rank[b]){
                     rank[a]++;
                 }
             }
@@ -66,7 +63,7 @@ class DSU{
 void solve(int n){
     DSU union_find(n);
     union_find.union_by_size(a, b);
-    int sz = union_find.size(a);
+    int sz = union_find.get_size(a);
     ...
 }
 ```
