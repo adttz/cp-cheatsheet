@@ -103,7 +103,7 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 ```cpp
 // Invert tree
 TreeNode* invertTree(TreeNode* root) {
-    if (!root) return root;
+    if (!root) return root;         
     swap(root->left, root->right);
     invertTree(root->left);
     invertTree(root->right);
@@ -127,18 +127,14 @@ bool isSymmetric(TreeNode* root) {
 bool isMirror(TreeNode* left, TreeNode* right) {
     if (!left && !right) return true;
     if (!left || !right) return false;
-    return left->val == right->val && 
-            isMirror(left->left, right->right) && 
-            isMirror(left->right, right->left);
+    return left->val == right->val && isMirror(left->left, right->right) && isMirror(left->right, right->left);
 }
 
 
 // Check if one tree is subtree of another
 bool isSubtree(TreeNode* root, TreeNode* subRoot) {
     if (!root) return false;
-    return isSameTree(root, subRoot) || 
-           isSubtree(root->left, subRoot) || 
-           isSubtree(root->right, subRoot);
+    return isSameTree(root, subRoot) || isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
 }
 
 
@@ -158,8 +154,10 @@ int checkBalance(TreeNode* root) {
     if (!root) return 0;
     int left = checkBalance(root->left);
     if (left == -1) return -1;
+
     int right = checkBalance(root->right);
     if (right == -1) return -1;
+
     if (abs(left - right) > 1) return -1;
     return 1 + max(left, right);
 }
@@ -176,8 +174,9 @@ int calculateHeight(TreeNode* node, int& diameter) {
     if (!node) return 0;
     int leftHeight = calculateHeight(node->left, diameter);
     int rightHeight = calculateHeight(node->right, diameter);
-    // Update diameter: path through current node
-    diameter = max(diameter, leftHeight + rightHeight);
+
+    int curr_diameter = leftHeight + rightHeight;
+    diameter = max(diameter, curr_diameter);
     return 1 + max(leftHeight, rightHeight);
 }
 ```

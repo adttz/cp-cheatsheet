@@ -5,6 +5,9 @@
 2. [Segment Tree](2-segment-tree)
 
 ## 1. Disjoint Set Union
+
+### Template
+
 ```cpp
 class DSU{
     private:
@@ -56,14 +59,39 @@ class DSU{
             }
         }
 };
+```
 
-
-
-// Usage
+#### Usage
+```cpp
 void solve(int n){
     DSU union_find(n);
     union_find.union_by_size(a, b);
     int sz = union_find.get_size(a);
     ...
+}
+```
+#### DSU on Grid
+```cpp
+int rows = grid.size();
+int cols = grid[0].size();
+DSU dsu(rows * cols);
+
+auto getID = [&](int i, int j) {
+    return i * cols + j;    // Main logic
+};
+
+vector<vector<int>> directions = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+
+for (int i = 0; i < rows; ++i) {
+    for (int j = 0; j < cols; ++j) {
+        if (grid[i][j] != 1) continue;
+
+        for (auto [dx, dy] : directions) {
+            int ni = i + dx, nj = j + dy;
+            if (ni >= 0 && nj >= 0 && ni < rows && nj < cols && grid[ni][nj] == 1) {
+                dsu.unite(getID(i, j), getID(ni, nj));
+            }
+        }
+    }
 }
 ```
