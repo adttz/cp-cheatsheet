@@ -5,7 +5,9 @@
     - [Structure](#structure)
     - [Traversals](#traversals)
     - [Common Operations](#common-operations)
-
+2. [Binary Search Tree](#2-binary-search-tree)
+    - [Common Operations](#common-operations)
+    - [Lowest Common Ancestor](#lowest-common-ancestor)
 ## 1. Binary Trees
 
 ### Structure
@@ -42,7 +44,8 @@ void preorder(TreeNode* root) {
 ```
 
 #### Inorder
-Basically goes from left to right in the tree, giving priority to nodes closer to root node
+- Basically goes from left to right in the tree, giving priority to nodes further from root node
+- Gives sorted order in BST
 ```cpp
 void inorder(TreeNode* root) {
     if (!root) return;
@@ -100,6 +103,7 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 ```
 
 ### Common Operations
+#### Basics
 ```cpp
 // Invert tree
 TreeNode* invertTree(TreeNode* root) {
@@ -110,13 +114,29 @@ TreeNode* invertTree(TreeNode* root) {
     return root;
 }
 
+// Maximum depth/height
+int maxDepth(TreeNode* root) {
+    if (!root) return 0;
+    return 1 + max(maxDepth(root->left), maxDepth(root->right));
+}
+```
 
+#### Tree Matching
+```cpp
 // Check if two trees are identical
 bool isSameTree(TreeNode* p, TreeNode* q) {
     if (!p && !q) return true;
     if (!p || !q) return false;
     return p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
 }
+
+
+// Check if one tree is subtree of another
+bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+    if (!root) return false;
+    return isSameTree(root, subRoot) || isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+}
+
 
 // Check if tree is symmetric (mirror)
 bool isSymmetric(TreeNode* root) {
@@ -129,23 +149,10 @@ bool isMirror(TreeNode* left, TreeNode* right) {
     if (!left || !right) return false;
     return left->val == right->val && isMirror(left->left, right->right) && isMirror(left->right, right->left);
 }
+```
 
-
-// Check if one tree is subtree of another
-bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-    if (!root) return false;
-    return isSameTree(root, subRoot) || isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
-}
-
-
-// Maximum depth/height
-int maxDepth(TreeNode* root) {
-    if (!root) return 0;
-    return 1 + max(maxDepth(root->left), maxDepth(root->right));
-}
-
-
-// Check if tree is height-balanced (AVL property)
+#### Check if tree is height-balanced (AVL property)
+```cpp
 bool isBalanced(TreeNode* root) {
     return checkBalance(root) != -1;
 }
@@ -162,8 +169,10 @@ int checkBalance(TreeNode* root) {
     return 1 + max(left, right);
 }
 
+```
 
-// Diameter of binary tree (longest path between any two nodes)
+#### Diameter of binary tree (longest path between any two nodes)
+```cpp
 int diameterOfBinaryTree(TreeNode* root) {
     int diameter = 0;
     calculateHeight(root, diameter);
@@ -181,18 +190,58 @@ int calculateHeight(TreeNode* node, int& diameter) {
 }
 ```
 
+## 2. Binary Search Tree
 
+#### Properties
+Binary Tree where for every node:
+- All values in the left subtree are less than the node’s value
+- All values in the right subtree are greater
 
+### Common Operations
 
+#### Search
+```cpp
+// Search for a value
+TreeNode* search(TreeNode* root, int val) {
+    if (!root || root->val == val) return root;
+    if (val < root->val) return search(root->left, val);
+    return search(root->right, val);
+}
 
+// Iterative search (more efficient)
+TreeNode* searchIterative(TreeNode* root, int val) {
+    while (root && root->val != val) {
+        root = (val < root->val) ? root->left : root->right;
+    }
+    return root;
+}
 
+// Find minimum value node (leftmost)
+TreeNode* findMin(TreeNode* root) {
+    if (!root) return nullptr;
+    while (root->left) root = root->left;
+    return root;
+}
 
+// Find maximum value node (rightmost)
+TreeNode* findMax(TreeNode* root) {
+    if (!root) return nullptr;
+    while (root->right) root = root->right;
+    return root;
+}
+```
 
+#### Insertion / Deletion
 
+```cpp
+// Insert a value
+TreeNode* insert(TreeNode* root, int val) {
+    if (!root) return new TreeNode(val);
+    if (val < root->val) root->left = insert(root->left, val);
+    else if (val > root->val) root->right = insert(root->right, val);
+    // If val == root->val, do nothing (no duplicates)
+    return root;
+}
 
-
-
-
-
-
-
+// TODO: Delete a value
+```
