@@ -281,8 +281,8 @@ string shortestCommonSupersequence(string &s1, string &s2) {
 ## 5. String DP
 
 ### Edit Distance
+- Memoization   
 ```cpp
-// Memoization   
 int rec(vector<vector<int>> &dp, string &s1, string &s2, int n, int m){
     if(n == 0) return m;
     if(m == 0) return n;
@@ -291,8 +291,9 @@ int rec(vector<vector<int>> &dp, string &s1, string &s2, int n, int m){
     if(s1[n - 1] == s2[m - 1]){
         return dp[n][m] = rec(dp, s1, s2, n - 1, m - 1);
     }
-    return dp[n][m] = 1 + min({rec(dp, s1, s2, n, m - 1), rec(dp, s1, s2, n - 1, m), 
-                                                    rec(dp, s1, s2, n - 1, m - 1)});
+    return dp[n][m] = 1 + min({rec(dp, s1, s2, n, m - 1), 
+                               rec(dp, s1, s2, n - 1, m), 
+                               rec(dp, s1, s2, n - 1, m - 1)});
 }
 
 int minDistance(string word1, string word2) {
@@ -302,8 +303,8 @@ int minDistance(string word1, string word2) {
 }
 ```
 
+- Tabulation
 ```cpp
-// Tabulation
 int minDistance(string word1, string word2) {
     int n = word1.size(), m = word2.size();
     vector<vector<int>> dp(n+1, vector<int>(m+1));
@@ -321,3 +322,55 @@ int minDistance(string word1, string word2) {
 }
 ```
 
+## 6. Bitmask DP
+
+
+## 7. Digit DP
+
+```cpp
+int dp[20][200][2];     // dp[pos][sum][tight]
+
+// pos  = current index in string
+// sum  = any property we want to track (e.g. sum of digits)
+// tight= 1 if prefix matches limit, else 0
+
+int rec(string &s, int n, int sum, bool tight) {
+    if(prune_case) return 0;
+    if(n == 0) {
+        return base_case ? 1 : 0;
+    }
+    if(dp[n][sum][tight] != -1) return dp[n][sum][tight];
+
+    int limit = tight ? (s[s.size() - n] - '0') : 9;
+    int ans = 0;
+    for(int dig = 0; dig <= limit; dig++) {
+        ans += rec(s, n - 1, sum + dig, tight && (dig == limit));
+    }
+    return dp[n][sum][tight] = ans;
+}
+
+int solve(string s) {
+    memset(dp, -1, sizeof(dp));
+    return rec(s, s.size(), 0, true);
+}
+
+string decrement(string s) {
+    int i = s.size() - 1;
+    while (i >= 0 && s[i] == '0') {
+        s[i] = '9';
+        i--;
+    }
+    if (i >= 0) s[i]--;
+    int idx = 0;
+    while (idx + 1 < s.size() && s[idx] == '0') idx++;
+    return s.substr(idx);
+}
+
+int ans(string L, string R) {
+    int ans = solve(r);
+    if (L == 0) return ans; 
+    l = decrement(l);
+    ans -= solve(l, k);
+    return ans;
+}
+```
